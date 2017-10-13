@@ -1,0 +1,125 @@
+//-----------------------
+//页面具体样式输出
+//-----------------------
+
+html, body {
+  //height: 100%;
+  width: 100%;
+  background: transparent;
+}
+
+h1 {
+  font-size: $fs-h1
+}
+h2 {
+  font-size: $fs-h2
+}
+article {
+  padding: 5px;
+  section {
+  margin:  $s-middle 0;
+    ul,ol{
+      padding-left: 1em;
+    }
+    %li-label-base {
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    //label类型ul列表
+    .label-ul {
+      &>li>*:first-child:before{
+        @extend %li-label-base;
+        color: $c-info;
+        content: '●     ';
+      }
+    }
+    //label类型ol列表
+    .label-ol {
+      //ol最大条目数样式限制
+      $list-max-number: 10;
+      & > li > *:first-child:before {
+        @extend %li-label-base;
+      }
+
+      @for $i from 1 through $list-max-number {
+        & > li:nth-child(#{$i}) > *:first-child:before {
+          color: $c-info;
+          //border-radius: 50%;
+          display: inline-block;
+          //width: 1em;
+          text-align: center;
+          //background-color: $c-aoyi;
+          content: '#{$i}、';
+        }
+      }
+    }
+    //文章详述
+    .p-detail {
+      background-color: $c-silkgray;
+      color: $c-lemon
+    }
+
+
+
+    h2 {
+      cursor: pointer;
+      font-size: $fs-h2;
+      line-height: 1.3;
+      margin: $s-small 0 $s-middle  0;
+      //border-bottom: $b-divider;
+      .section-cursor {
+        opacity: 0;
+        transition:  0.3s opacity linear;
+        color: $c-info
+      }
+      &:hover > .section-cursor {
+          opacity: 1;
+      }
+    }
+    p {
+      line-height: 1.2;
+      font-size:  $fs-p2;
+      margin: $s-small 0;
+    }
+  }
+
+  img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+  }
+}
+//escapeCode代码展示的样式
+.escape-container {
+  padding: $s-small;
+  overflow-x:auto;
+  background-color: $c-silkgray;
+  .escape-id {
+    color:  $c-darkTree
+  }
+  .escape-id-val {
+    color: $c-blood
+  }
+  .escape-class {
+    color: $c-info
+  }
+  .escape-class-val {
+    color: $c-blood
+  }
+  .escape-docType {
+    font-weight: bold;
+    color: $c-nightlight
+  }
+  .escape-tag {
+    font-weight: bold;
+    color: $c-darklemon
+  }
+
+}
+
+

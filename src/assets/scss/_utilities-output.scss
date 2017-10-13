@@ -1,0 +1,30 @@
+//-----------------------
+//常规样式输出，用于特殊调整
+//-----------------------
+
+
+//
+// 颜色
+//
+@each $item in $Colors {
+  $name: nth($item,1);
+  $value: nth($item,2);
+  .color-#{$name} {
+    color: $value !important;
+  }
+}
+
+
+//
+// 背景色
+//
+@each $item in $Colors {
+  $name: nth($item,1);
+  $value: nth($item,2);
+  .bg-#{$name} {
+    background-color: $value !important;
+  }
+}
+.bg-transparent {
+  background-color: transparent;
+}
