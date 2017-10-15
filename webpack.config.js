@@ -4,8 +4,12 @@ const autoprefixer = require('autoprefixer');
 module.exports = {
     devtool: '#eval-source-map',
     entry: {
+        main: __dirname + "/src/main.js",
         //常用的第三方库封装
-        main: __dirname + "/src/main.js"
+        vendor:[
+            __dirname + "/src/module/vendor/semanticUI/semantic.min.css",
+            __dirname + "/src/module/vendor/semanticUI/semantic.min.js",
+        ]
     },
     output: {
         path: __dirname + "/dist",
@@ -101,6 +105,9 @@ module.exports = {
     plugins:[
         new HtmlWebpackPlugin({
             template: './src/index.html' // 模板路径
+        }),
+        new CommonsChunkPlugin({
+            names: ['vendor', 'manifest']//manifest:抽取变动部分，防止第三方控件的多次打包
         })
     ]
 };

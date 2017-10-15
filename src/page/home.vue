@@ -1,6 +1,9 @@
 <!--主界面-->
 <script>
+    import Avatar from "../component/avatar.vue";
+
     export default {
+        components: {Avatar},
         data () {
             return {
             }
@@ -9,8 +12,22 @@
 </script>
 
 <template>
-    <div class="container-fluid">
-        <div class="row">
+    <div class="layout">
+        <nav class="layout-menu">
+            <avatar class="center">
+
+            </avatar>
+        </nav>
+        <div class="layout-main">
+            <header>
+
+            </header>
+            <nav>
+
+            </nav>
+            <main>
+
+            </main>
             <!--<div class="col">-->
                 <!--<button type="button" class="btn btn-primary">Primary</button>-->
                 <!--<button type="button" class="btn btn-secondary">Secondary</button>-->
@@ -27,36 +44,19 @@
 
 <style lang="scss">
     @import "../assets/scss/methods";
-    $widthMenu:  200px;
+    $home-width-menu:  200px;
+
     .layout {
-        border: $b-box;
-        background: $c-milka;
-        position: relative;;
-        .layout-main {
-            height: auto;
-        }
-
+        height:100%;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
         .layout-menu {
-            position: fixed;
-            left:0;
-            top:0;
-            min-height: 100vh ;
-            width:  $widthMenu !important;
-            &>ul {
-                width: inherit !important;
-                min-height: inherit !important;
-            }
+            width: $home-width-menu;
+            background-color:  $c-nightlight;
         }
-
         .layout-main {
-            margin-left: $widthMenu;
-            .point-item {
-                padding: $s-small;
-                width: 100%;
-                height: auto;
-                min-height: 99.5vh;
-                box-sizing: border-box;
-            }
+            flex:1;
         }
     }
 
