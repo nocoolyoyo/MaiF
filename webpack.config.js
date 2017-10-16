@@ -1,26 +1,33 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+
+
+//gulp 输出文件的目录
+// let _gulpFilePath = (dirname)=> {
+//     let path = "./src/gulp/";
+//     if(typeof dirname === 'undefined')
+//         return path;
+//     return path + dirname;
+// };
 
 module.exports = {
     devtool: '#eval-source-map',
     entry: {
         main: __dirname + "/src/main.js",
+        // //常用的第三方库封装
+        // vendor:  __dirname + _gulpFilePath('vendor.js')
         //常用的第三方库封装
-        vendor:[
-            __dirname + "/src/module/vendor/semanticUI/semantic.min.css",
-            __dirname + "/src/module/vendor/semanticUI/semantic.min.js",
-        ]
+        vendor: ['jquery'],
     },
     output: {
         path: __dirname + "/dist",
         filename: '[name].js',
-        // filename: "build.js"
     },
     resolve: {
         extensions: ['.js', '.jsx'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            jquery: 'jquery/dist/jquery.min.js',
         }
     },
     resolveLoader: {
@@ -50,19 +57,13 @@ module.exports = {
                     {
                         loader: 'vue-loader'
                     },
-                    //iview转义为vue
-                    // {
-                    //     loader: 'iview-loader',
-                    //     options: {
-                    //         prefix: true
-                    //     }
-                    // }
+
                 ]
                 //    exclude: /node_modules/
             },
             //其他文件模块化
             {
-                test: /\.(eot|ttf|woff)$/,
+                test: /\.(eot|ttf|woff|woff2)$/,
                 loader: 'file-loader',
             },
             //sass模块
@@ -101,13 +102,19 @@ module.exports = {
             },
         ]
     },
-
     plugins:[
+        //jquery对象暴露给全局
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        }),
         new HtmlWebpackPlugin({
             template: './src/index.html' // 模板路径
         }),
-        new CommonsChunkPlugin({
-            names: ['vendor', 'manifest']//manifest:抽取变动部分，防止第三方控件的多次打包
-        })
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     names: ['vendor', 'manifest']//manifest:抽取变动部分，防止第三方控件的多次打包
+        // }),
+        //webpack忽略打包
+        // new webpack.IgnorePlugin(/\.\/vendor.js$/)
     ]
 };

@@ -4,6 +4,8 @@
   "description": "a multi-iframe page framework to build backend system or others",
   "main": "bundle.js",
   "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "vue": "^2.4.4"
   },
   "devDependencies": {

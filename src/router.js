@@ -13,10 +13,7 @@ export default new Router({
         {
             path:'/',
             redirect: '/home',
-            component: home,
-            // children: [
-            //     { path: 'login', name:  'login',  component: Login }
-            // ]
+            component: home
         },{
             path:'/home',
             component: home,

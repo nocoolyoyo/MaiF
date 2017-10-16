@@ -18,9 +18,6 @@
  *
  */
 
-//jquery模块改写
-import $ from 'jquery';
-
 ;(function ($, window, document, undefined) {
 
 $.site = $.fn.site = function(parameters) {
