@@ -1,102 +1,137 @@
 <!--主界面-->
 <script>
-//    import Avatar from "../component/avatar.vue";
-    import PageList from "./PageList";
-    import Sup from '../supply'     //页面辅助方法类
+    import Avatar from "../component/avatar.vue"
+    import PageList from "./PageList"
+    import { isUrl } from '../utils/assist'     //页面辅助方法类
     /*
      *   frames用于记录当前窗口中打开的页面，后期可根据需求写入localStorage做断电保存
      *   frame只记录当前url, url组织方式与普通url一样
      */
+    //记录窗口列表对象
     let frames = {
-
+        active :    "" ,    //当前激活窗口
+        list:  []       //已打开的窗口列表
     };
-
 
     //tab标签页事件管理
-    let TabsEventHandler = {
-        _functions: {
-            //激活tab
-            active: () => {
+    const TabsEvH = {
+        on ()  {
 
-            },
-            //关闭
-            add: () =>{
-
-            },
-            //删除页面
-            del: () => {
-
-            }
         },
-        //点击事件管理
-        ClickHandler: (e) => {
-            console.log(e);
-            console.log(this);
-            //this._functions.active();
-        }
+        //新增标签
+        add () {
 
+        },
+        //删除标签
+        del ()  {
+
+        }
     };
 
-    //Page页面事件管理
-    let PagesEventHandler = {
+    //Frames页面事件管理
+    const FramesEvH = {
         //激活页面
-        on: () => {
+        on ()  {
 
         },
         //新增页面
-        add: () =>{
+        add () {
 
         },
         //删除页面
-        del: () => {
+        del () {
 
         }
     };
 
-    //模块页面事件管理
-    let EventsHander = {
-        openPage:(obj)=>{
-            Sup.openFrame(obj);
-        },
-        closePage: (obj)=> {
+    //打开窗口方法
+    function openFrame  (obj = false) {
+        //如果传入参数为字符串，则是默认用url方式打开页面
+        if(typeof obj === "string"){
+            if(isUrl(obj)) {
+                //打开iframe外链,
+                return
+            }else{
+                obj = obj.split("?");
+                //根据url头是否带/，则表明是详情页，取出详情页的ID
+                if(/\//.test(obj[0])){
+
+                }else{
+                    return ;
+                }
+            }
+
+            // let obj = deserializeUrl(obj);
+        }
+        //如果传入参数为对象，则默认是以name , id方式打开一个新页面
+        if(typeof obj === "object"){
+            //如果name中带/，则表明是详情页，取出详情页D的ID
+            if(/\//.test(obj)){
+
+            }else{
+
+            }
+        }
+    }
+    //关闭窗口
+    function  closeFrame(frameId) {
+
+    }
+
+    //激活窗口
+    function  activeFrame(frameId){
+
+    }
+
+    //标签页点击事件管理
+    function tabClickHandler (e)  {
+        if(e.target.nodeName === "LABEL"){
+
+            return;
+        }
+        if(e.target.nodeName === "I"){
 
         }
-    };
+    }
 
+    //节点渲染后（mounted）的初始化
+    function initAfterRender() {
+        //下拉菜单初始化
+        $('.ui.dropdown').dropdown();
+    }
 
-    export default {
-//        components: {Avatar},
+    //页面输出对象
+    export default  {
+        components: {Avatar},
         data () {
             return {
             }
         },
         methods: {
             //tab标签页点击事件管理
-            tabClickHandler: (e)=>{
-                TabsEventHandler.ClickHandler(e)
+            tabClickHandler (e){
+                tabClickHandler(e)
             },
             //打开页面，缺省方法，包含on和add判断调用
-            openPage: (obj)=>{
-                console.log(obj)
-                EventsHander.openPage(obj)
+            openFrame (obj){
+                openFrame(obj)
             },
-            closePage: (obj)=>{
-                EventsHander.closePage(obj)
+            //关闭页面
+            closeFrame(frameId){
+                closeFrame(frameId)
             }
         },
-        mounted: function () {
-            console.log(this)
-            //下拉框初始化
-            $('.ui.dropdown').dropdown();
+        mounted () {
+            initAfterRender();
         }
-    }
+    };
 </script>
 
 <template>
     <div class="layout">
         <nav class="layout-menu ui inverted vertical menu">
-            <a class="item" @click="openPage('READ/tab/1?id=1&item=2')">菜单1<i class="angle right icon"></i></a>
-            <a class="item" @click="openPage({name: 'tabDetail/12', params: {}})">菜单2<i class="angle right icon"></i></a>
+            <a class="item" @click="openFrame('tab')">菜单1<i class="angle right icon"></i></a>
+            <a class="item" @click="openFrame({name: 'tab-detail/12'})">菜单2<i class="angle right icon"></i></a>
             <a class="item">
                 菜单3<i class="angle down icon"></i>
             </a>
@@ -115,7 +150,7 @@
         <div class="layout-main">
             <header class="top-tools">
                 <div class="ui icon input">
-                    <input type="text" placeholder="Search...">
+                    <input type="text" placeholder="输入想要查询的内容">
                     <i class="circular search link icon"></i>
                 </div>
             </header>
@@ -124,14 +159,14 @@
                     <div class="tabs-home">
                         <i class="home icon"></i>
                     </div>
-                    <!--@click="tabClickHandler(event)"-->
-                    <ul class="tabs-list" >
-                        <li class="item active">
-                            <label @click="openPage()">标签页</label>
+
+                    <ul class="tabs-list"  @click="tabClickHandler($event)">
+                        <li class="item active"  data-url="">
+                            <label>标签页</label>
                             <i class="remove circle icon"></i>
                         </li>
                         <li class="item">
-                            <label @click="openPage()">标签页</label>
+                            <label>标签页</label>
                             <i class="remove circle icon"></i>
                         </li>
                         <li class="item">
@@ -150,7 +185,6 @@
                                 <div class="item">定位当前页</div>
                                 <div class="item">关闭当前页</div>
                                 <div class="item">关闭其他页</div>
-
                             </div>
                         </div>
                         <div><i class="sign out icon"></i></div>
@@ -230,7 +264,6 @@
                         line-height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
                         text-align: center;
                         background-color: $c-silkgray;
-                        opacity: 0.9;
                         i {
                             margin-right: 0;
                         }
@@ -258,7 +291,6 @@
                             i {
                                 $home-width-i: 25px;
                                 width: $home-width-i;
-                                margin-bottom: 3px;
                                 margin-right: 0;
                                 &:hover {
                                     color: $c-danger;

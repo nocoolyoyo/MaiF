@@ -16,9 +16,9 @@
 *
 * */
 const page = {
-    "tab":       {title: "标签页",       id:"",  url: "READ/tab"},
-    "R/tab": {title: "标签详情页面",  id:"",  url: "READ/tab/:id"},
-    "C/tab": {title: "新增标签详情",  id:"",  url: "DELETE/tab/:id"},
+    "tab":                             {title: "标签页",             url: "tab"},
+    "tab-detail":                 {title: "标签详情页面",  url: "tab-detail/:id"},
+    "tab-detail-approve": {title: "新增标签详情",  url: "tab-detail-approve/:id"},
 };
 
 
