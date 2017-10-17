@@ -6,6 +6,9 @@ import Router from 'vue-router'
 import login from './page/login.vue'
 import home from './page/home.vue'
 
+import tab from './page/frame/tab.vue'
+import tabDetail from './page/frame/tabDetail.vue'
+
 Vue.use(Router);
 
 export default new Router({
@@ -16,7 +19,7 @@ export default new Router({
             component: home
         },{
             path:'/home',
-            component: home,
+            component: home
         },{
             path:'/login',
             component: login,

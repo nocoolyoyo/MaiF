@@ -1,15 +1,15 @@
 <!--头像UI组件-->
-<template>
+<template title="标签详情页面">
     <div class="avatar size-md">
     </div>
 </template>
-<style lang="scss" scoped>
-    @import "../assets/scss/methods.scss";
+<style lang="scss"  scoped>
+    @import "../../assets/scss/methods";
     $avatar-border : 2px solid  $c-grayEyes;
     $avatar-size:  50px !default;
     $avatar-size-md:  75px;
     .avatar {
-        background-image: url("../assets/image/avatar.jpg") ;
+        background-image: url("../../assets/image/avatar.jpg") ;
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;

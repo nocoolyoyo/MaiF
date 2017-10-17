@@ -1,17 +1,20 @@
 <!--主界面-->
 <script>
+    import Vue from "vue"
     import Avatar from "../component/avatar.vue"
-    import PageList from "./PageList"
+    import { LoadComponent } from "../component/_component"
+    import { LoadFrame } from "./frame/maif"
     import { isUrl } from '../utils/assist'     //页面辅助方法类
+
+
+
     /*
      *   frames用于记录当前窗口中打开的页面，后期可根据需求写入localStorage做断电保存
      *   frame只记录当前url, url组织方式与普通url一样
      */
-    //记录窗口列表对象
-    let frames = {
-        active :    "" ,    //当前激活窗口
-        list:  []       //已打开的窗口列表
-    };
+    //记录已经打开窗口列表对象，记录的是frame的url
+    let frames = [];
+
 
     //tab标签页事件管理
     const TabsEvH = {
@@ -19,7 +22,15 @@
 
         },
         //新增标签
-        add () {
+        add (url,title) {
+            let $tabList = document.querySelector('.tabs-list');
+            let $activeItem = $tabList.querySelector('.active');
+            let template = `<li class="item active"  data-url="${url}">
+                                    <label>${title}</label>
+                                    <i class="remove circle icon"></i>
+                              </li>`;
+            $tabList.appendChild(template);
+            $activeItem.classList.remove('active');
 
         },
         //删除标签
@@ -35,8 +46,53 @@
 
         },
         //新增页面
-        add () {
+        add (type = 1, url, params=null, uniId) {
+            //如果type为0，则打开的是页面组件；如果为1，则根据url用iframe打开
+            let $frameList = document.querySelector('.frame-pages');
+            let $activeItem = $frameList.querySelector('.active');
+            let frameName = url;
 
+            LoadFrame(frameName);
+//            Vue.component('avatar', Avatar);
+//                let paramsTemp = "";
+//                for(let k in params){
+//                    console.log(k);
+//                    paramsTemp += k +"=" + params[k];
+//                }
+//                let template = document.createElement('div');
+//                    template.innerHTML = `<avatar></avatar>`;
+//                console.log($frameList);
+//
+//                    template.classList.add("page","active");
+//
+//                $frameList.appendChild(template);
+               // $activeItem.classList.remove('active');
+//            Vue.component(eval(frameName), function (resolve) {
+//                console.log(resolve)
+//                // 这个特殊的 require 语法告诉 webpack
+//                // 自动将编译后的代码分割成不同的块，
+//                // 这些块将通过 Ajax 请求自动下载。
+//
+//                // require([`${frameName}`], function () {
+//                //     console.log(`${Config.PATH}${frameName}`)
+//                //     console.log(1)
+//                // })
+//            });
+
+            console.log(LoadFrame(frameName))
+//            LoadFrame(url);
+
+//        , function () {
+//                let paramsTemp = "";
+//                for(let k in params){
+//                    console.log(k)
+//                    paramsTemp += k +"=" + params[k];
+//                }
+//                let page = `<${frameName} ${paramsTemp}></${frameName}>`;
+//                let template = `<div class="page active">${page}</div>`;
+//                $frameList.appendChild(template);
+//                $activeItem.classList.remove('active');
+//            }
         },
         //删除页面
         del () {
@@ -45,25 +101,28 @@
     };
 
     //打开窗口方法
-    function openFrame  (obj = false) {
-        //如果传入参数为字符串，则是默认用url方式打开页面
+    function openFrame (obj = false) {
+
+        //打开方式一：如果传入参数为字符串，则是默认用url方式打开页面
         if(typeof obj === "string"){
             if(isUrl(obj)) {
                 //打开iframe外链,
-                return
+                FramesEvH.add(0, obj)
             }else{
                 obj = obj.split("?");
-                //根据url头是否带/，则表明是详情页，取出详情页的ID
                 if(/\//.test(obj[0])){
-
+                    obj = obj[0].split("/");
+                    //打开可重复页
+                    FramesEvH.add(0, obj[0], obj[1])
                 }else{
-                    return ;
+                    //打开唯一页
+                    FramesEvH.add(0, obj[0]);
                 }
             }
-
-            // let obj = deserializeUrl(obj);
+            return;
         }
-        //如果传入参数为对象，则默认是以name , id方式打开一个新页面
+
+        //打开方式二：如果传入参数为对象，则默认是以name , id方式打开一个新页面
         if(typeof obj === "object"){
             //如果name中带/，则表明是详情页，取出详情页D的ID
             if(/\//.test(obj)){
@@ -114,7 +173,8 @@
             },
             //打开页面，缺省方法，包含on和add判断调用
             openFrame (obj){
-                openFrame(obj)
+                openFrame(obj);
+                console.log(this)
             },
             //关闭页面
             closeFrame(frameId){
@@ -160,23 +220,23 @@
                         <i class="home icon"></i>
                     </div>
 
-                    <ul class="tabs-list"  @click="tabClickHandler($event)">
-                        <li class="item active"  data-url="">
-                            <label>标签页</label>
-                            <i class="remove circle icon"></i>
-                        </li>
-                        <li class="item">
-                            <label>标签页</label>
-                            <i class="remove circle icon"></i>
-                        </li>
-                        <li class="item">
-                            <label>标签页</label>
-                            <i class="remove circle icon"></i>
-                        </li>
-                        <li class="item">
-                            <label>标签页</label>
-                            <i class="remove circle icon"></i>
-                        </li>
+                    <ul class="tabs-list" @click="tabClickHandler($event)">
+                        <!--<li class="item active"  data-url="">-->
+                            <!--<label>标签页</label>-->
+                            <!--<i class="remove circle icon"></i>-->
+                        <!--</li>-->
+                        <!--<li class="item">-->
+                            <!--<label>标签页</label>-->
+                            <!--<i class="remove circle icon"></i>-->
+                        <!--</li>-->
+                        <!--<li class="item">-->
+                            <!--<label>标签页</label>-->
+                            <!--<i class="remove circle icon"></i>-->
+                        <!--</li>-->
+                        <!--<li class="item">-->
+                            <!--<label>标签页</label>-->
+                            <!--<i class="remove circle icon"></i>-->
+                        <!--</li>-->
                     </ul>
                     <div class="tabs-tools">
                         <div class="ui icon dropdown">
@@ -191,15 +251,15 @@
                     </div>
                 </nav>
                 <div class="frame-pages">
-                    <div class="page active">
+                    <!--<div class="page active">-->
 
-                    </div>
-                    <div class="page">
+                    <!--</div>-->
+                    <!--<div class="page">-->
 
-                    </div>
-                    <div class="page">
+                    <!--</div>-->
+                    <!--<div class="page">-->
 
-                    </div>
+                    <!--</div>-->
                 </div>
             </main>
         </div>

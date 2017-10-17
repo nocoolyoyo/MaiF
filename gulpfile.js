@@ -19,6 +19,10 @@ let _vendorPath = (dirname)=> {
     return path + dirname;
 };
 
+const framePath = "./src/page/frame";
+const componentPath = "./src/page/frame";
+
+
 //输出最终编译版本stylesheet文件
 
 gulp.task('vendor', function() {
@@ -31,6 +35,19 @@ gulp.task('vendor', function() {
         .pipe(
             gulp.dest(_outputPath()))
 });
+
+//根据src/page/frame下的文件生成对应的模块请求头写入到_frame.js，免去手动添加的烦恼
+gulp.task('build-frame-entry', function() {
+    gulp.src([
+        _vendorPath('jquery/jquery.min.js'),
+        _vendorPath('jquery/semanticUI/semantic.min.css'),
+        _vendorPath('jquery/semanticUI/semantic.min.js')])
+        .pipe(
+            concat('vendor.js'))
+        .pipe(
+            gulp.dest(_outputPath()))
+});
+
 //文件监听
 // gulp.task('watch', function(){
 //     gulp.watch('static/scss/**/*.scss', ['build']);

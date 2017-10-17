@@ -5,7 +5,6 @@ import './module/vendor/semanticUI/semantic.min.js'//引入semanticUI
 
 import Vue from 'vue'
 import App from './app.vue'
-import Sup from './utils/assist'
 import router from './router'
 import './assets/scss/style.scss'       //引入模块全局scss，会打包进全局文件
 

@@ -15,13 +15,13 @@ module.exports = {
     devtool: '#eval-source-map',
     entry: {
         main: __dirname + "/src/main.js",
-        // //常用的第三方库封装
-        // vendor:  __dirname + _gulpFilePath('vendor.js')
         //常用的第三方库封装
         vendor: ['jquery'],
+
     },
     output: {
         path: __dirname + "/dist",
+        chunkFilename:'[name].js',
         filename: '[name].js',
     },
     resolve: {
@@ -35,6 +35,7 @@ module.exports = {
             'scss-loader': 'sass-loader',
         },
     },
+
     devServer: {
         contentBase: "./dist",//本地服务器所加载的页面所在的目录
         historyApiFallback: true,//不跳转
