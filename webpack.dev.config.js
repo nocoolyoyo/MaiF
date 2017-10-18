@@ -1,3 +1,7 @@
+/*
+* webpack开发环境配置
+*
+* */
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
@@ -101,14 +105,19 @@ module.exports = {
                     name: '[name].[ext]?[hash]'
                 }
             },
+            //jquery对象暴露
+            {
+                test: require.resolve('jquery'),
+                loader: 'expose-loader?jQuery!expose-loader?$'
+            }
         ]
     },
     plugins:[
         //jquery对象暴露给全局
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery"
-        }),
+        // new webpack.ProvidePlugin({
+        //     $: "jquery",
+        //     jQuery: "jquery"
+        // }),
         new HtmlWebpackPlugin({
             template: './src/index.html' // 模板路径
         }),

@@ -26,9 +26,9 @@
             let $tabList = document.querySelector('.tabs-list');
             let $activeItem = $tabList.querySelector('.active');
             let template = `<li class="item active"  data-url="${url}">
-                                    <label>${title}</label>
-                                    <i class="remove circle icon"></i>
-                              </li>`;
+                                            <label>${title}</label>
+                                            <i class="remove circle icon"></i>
+                                      </li>`;
             $tabList.appendChild(template);
             $activeItem.classList.remove('active');
 
@@ -48,11 +48,12 @@
         //新增页面
         add (type = 1, url, params=null, uniId) {
             //如果type为0，则打开的是页面组件；如果为1，则根据url用iframe打开
+
             let $frameList = document.querySelector('.frame-pages');
             let $activeItem = $frameList.querySelector('.active');
             let frameName = url;
 
-            LoadFrame(frameName);
+            new Vue(LoadFrame(frameName));
 //            Vue.component('avatar', Avatar);
 //                let paramsTemp = "";
 //                for(let k in params){
