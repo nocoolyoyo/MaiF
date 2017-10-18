@@ -103,6 +103,7 @@ const Tabs = {
     },
     //删除标签
     delete (frameId)  {
+        console.log(frameId);
         let $tabList = document.querySelector('.tabs-list');
         if($tabList.querySelector(`[data-id="${frameId}"]`))
             $tabList.removeChild($tabList.querySelector(`[data-id="${frameId}"]`));
@@ -296,12 +297,16 @@ export function closeOtherFrames() {
             //移除vue实例
             VmList[openedFrames[i]].$destroy();
             VmList[openedFrames[i]] = null;
-            openedFrames.remove(openedFrames[i]);
+
             //移除模板
             if($frameList.querySelector("#"+openedFrames[i]))
                 $frameList.removeChild($frameList.querySelector("#"+openedFrames[i]));
+
         }
     }
+    if(activeFrameId === "homePage")
+        openedFrames= ["homePage"];
+    openedFrames= ["homePage",activeFrameId ];
     Active(activeFrameId);
 }
 

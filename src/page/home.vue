@@ -1,7 +1,7 @@
 <!--主界面-->
 <script>
     import Vue from "vue"
-    import Avatar from "../component/avatar/avatar.vue"
+//    import Avatar from "../component/avatar/avatar.vue"
     import {openFrame,closeFrame, closeOtherFrames}  from "./frame/frame"
 
 
@@ -28,7 +28,7 @@
 
     //页面输出对象
     export default  {
-        components: {Avatar},
+//        components: {Avatar},
         data () {
             return {
                 imgSrc: "http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9B%BE%E7%89%87&step_word=&hs=0&pn=0&spn=0&di=113392779830&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=594559231%2C2167829292&os=2394225117%2C7942915&simid=3436308227%2C304878115&adpicid=0&lpn=0&ln=1993&fr=&fmq=1508314826003_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120727%2F201995-120HG1030762.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bpw5rtv_z%26e3Bv54AzdH3Fejvp56AzdH3Fda8da0AzdH3Fdanll9_z%26e3Bip4s&gsm=&rpstart=0&rpnum=0"
@@ -81,7 +81,7 @@
             <!--</nav>-->
 
             <div class="information-card">
-                <avatar class="round size-md"></avatar>
+                <!--<avatar class="round size-md"></avatar>-->
                 <h2>啊实打实的</h2>
             </div>
             <div class="ui vertical following fluid accordion text menu inverted">
@@ -132,15 +132,19 @@
             </header>
             <main class="frame-container">
                 <nav class="frame-tabs ui">
+                    <div class="tabs-tools">
+                        <div><i class="angle double left icon"></i></div>
+                    </div>
                     <div class="tab-list-container">
                         <ul class="tabs-list" @click="tabClickHandler($event)">
-                            <li class="item active"  data-id="homePage">
+                            <li class="active"  data-id="homePage">
                                 <i class="home icon"></i>
                             </li>
                         </ul>
                     </div>
 
                     <div class="tabs-tools">
+                        <div><i class="angle double right icon"></i></div>
                         <div class="ui icon dropdown">
                             <i class="clone icon"></i>
                             <div class="menu">
@@ -342,7 +346,8 @@
     @import "../assets/scss/methods";
     $home-width-menu:  200px;
     $home-height-top-tools:  50px;
-    $home-height-frame-tabs:  50px;
+    $home-height-frame-tabs:  40px;
+    $home-font-size-frame-tabs: 14px;
     $home-border-height-slim: 1px;
     $home-border-height-bold: 2px;
     $home-border-frame-tabs: $home-border-height-bold solid $c-smt-night;
@@ -412,7 +417,7 @@
                     .tabs-home,.tabs-tools>div {
                         box-sizing: border-box;
                         cursor: pointer;
-                        width: 50px;
+                        width: $home-height-frame-tabs;
                         font-size: large;
                         line-height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
                         text-align: center;
@@ -421,15 +426,22 @@
                             margin-right: 0;
                         }
                     }
+                    .tabs-tools {
+                        &>div {
+                            display: inline-block;
+                            border-left: $home-border-tabs-list-li;
+                        }
+                    }
                     .tab-list-container {
                         overflow: hidden;
                         flex: 1;
+                        position: relative;
                     }
 
                     .tabs-list {
                         overflow-y: hidden;
                         overflow-x: auto;
-                        position: relative;
+
                         height: 100%;
                         li[data-id="homePage"] {
                             position: sticky;
@@ -450,7 +462,8 @@
                             transition:$home-transition-tabs;
                             label {
                                 cursor: pointer;
-                                font-weight: bold;
+                                /*font-weight: bold;*/
+                                font-size:  $home-font-size-frame-tabs;
                                 overflow: hidden;
                                 text-overflow:ellipsis;
                                 white-space: nowrap;
@@ -473,31 +486,24 @@
                             }
                         }
                     }
-                    .tabs-tools {
-                        &>div {
-                            display: inline-block;
-                            border-left: $home-border-tabs-list-li;
-                            width: 50px;
-                        }
-                    }
+
                 }
                 .frame-pages {
-                    right: 0;
-                    bottom: 0;
-                    z-index: 1;
-                    overflow-x: hidden;
-                    overflow-y: auto;
-                    -webkit-overflow-scrolling: touch;
-                    will-change: scroll-position;
-                    contain: size style layout;
-                    top: 0;
-                    display: block;
-                    left: 0;
                     height: 100%;
-                    position: relative;
                     flex: 1;
                     .page {
                         display: none;
+                        right: 0;
+                        bottom: 0;
+                        z-index: 1;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        -webkit-overflow-scrolling: touch;
+                        will-change: scroll-position;
+                        contain: size style layout;
+                        top: 0;
+                        left: 0;
+                        position: relative;
                         height:100%;
                         &.active {
                             display: block;
