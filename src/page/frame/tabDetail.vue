@@ -1,7 +1,7 @@
 <!--头像UI组件-->
 <template title="标签详情页面">
-    <div class="avatar size-md">
-    </div>
+    <div>123123132</div>
+
 </template>
 <style lang="scss"  scoped>
     @import "../../assets/scss/methods";

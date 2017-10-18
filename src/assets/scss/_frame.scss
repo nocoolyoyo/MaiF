@@ -1,0 +1,19 @@
+//-----------------------
+//frame的容器样式输出
+//-----------------------
+
+
+$box-shadow-frame: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+$border-radius-frame: .28571429rem;
+$space-frame: 0.5rem;
+$height-frame: 30px;
+
+
+.frame {
+    background-color: white;
+    margin: $space-frame;
+    padding: $space-frame;
+    border-radius: $border-radius-frame;
+    box-shadow: $box-shadow-frame;
+
+}

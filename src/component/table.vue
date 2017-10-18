@@ -1,9 +1,10 @@
 <!--头像UI组件-->
 <template>
     <div class="avatar size-md">
+
     </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
     @import "../assets/scss/methods.scss";
     $avatar-border : 2px solid  $c-grayEyes;
     $avatar-size:  50px !default;
@@ -31,6 +32,9 @@
         data () {
             return {
             }
+        },
+        computed(){
+
         }
     }
 </script>

@@ -10,7 +10,7 @@ const Walk = require('walk');
 
 const frameConfig = {
     path:'./src/page/frame/',
-    entry: '_maif.js',
+    entry: '_frame.js',
     myLoader: {
         FRAME: {
             name: "title",
@@ -20,7 +20,7 @@ const frameConfig = {
 };
 const componentPath = {
     path:'./src/page/component/',
-    entry: '_maif.js'
+    entry: '_component.js'
 };
 
 function buildWebpackLoader (name,fullName) {
