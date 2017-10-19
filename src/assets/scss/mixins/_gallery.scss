@@ -1,0 +1,108 @@
+//-----------------------
+//画廊
+//-----------------------
+
+%list-base {
+  list-style: none;
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+%gallery-base {
+  @include display-flex(row,flex-start, center);
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  &>li{
+    float: left;
+    position: relative;
+    transition: all ease .5s;
+  }
+  .gallery-box{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size:cover;
+  }
+}
+
+@mixin gallery($rows:3) {
+    @extend %list-base;
+    @extend %gallery-base;
+    @if($rows == 3){
+      &>li{
+        width: 32%;
+        padding-top: 32%;
+        margin-left: 1%;
+        margin-top: 1%;
+      }
+    }@else if($rows == 5){
+      &>li{
+        width: 18%;
+        padding-top: 18%;
+        margin-left: 1%;
+        margin-top: 1%;
+      }
+    }@else if($rows == 6){
+      &>li{
+        width: 13%;
+        padding-top: 13%;
+        margin-left: 3%;
+        margin-top: 3%;
+      }
+    }
+}
+
+//
+//%list-base {
+//  list-style: none;
+//  text-decoration: none;
+//  list-style-type: none;
+//  margin: 0;
+//  padding: 0;
+//}
+//
+//%gallery-base {
+//  @include display-flex(flex-start, center);
+//  flex-wrap: wrap;
+//  &>li{
+//    float: left;
+//    position: relative;
+//   transition: $transition-slow;
+//  }
+//  .gallery-box{
+//    position: absolute;
+//    left: 0;
+//    top: 0;
+//    width: 100%;
+//    height: 100%;
+//    background-position: center;
+//    background-repeat:no-repeat;
+//    background-size:cover;
+//  }
+//}
+//
+//@mixin gallery($rows:3){
+//  @extend %list-base;
+//  @extend %gallery-base;
+//  @if($rows == 3){
+//    &>li{
+//      width: 32%;
+//      padding-top: 32%;
+//      margin-left: 1%;
+//      margin-top: 1%;
+//    }
+//  }@else if($rows == 5){
+//    &>li{
+//      width: 18%;
+//      padding-top: 18%;
+//      margin-left: 1%;
+//      margin-top: 1%;
+//    }
+//  }
+//}

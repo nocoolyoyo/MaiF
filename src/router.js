@@ -2,12 +2,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-//每次有新增的页面时候都应当在这里对页面进行注册
 import login from './page/login.vue'
 import home from './page/home.vue'
 
-import tab from './page/frame/tab.vue'
-import tabDetail from './page/frame/tabDetail.vue'
 
 Vue.use(Router);
 

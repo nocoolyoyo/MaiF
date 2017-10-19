@@ -1,6 +1,7 @@
 const form = resolve => require.ensure([],() => resolve(require('./form.vue')), 'form');
 const tab = resolve => require.ensure([],() => resolve(require('./tab.vue')), 'tab');
 const tabDetail = resolve => require.ensure([],() => resolve(require('./tabDetail.vue')), 'tabDetail');
+
 const FRAME = {
   "form": {
     "title": "表单元素展示"
@@ -12,6 +13,8 @@ const FRAME = {
     "title": "标签详情页面"
   }
 };
+
+
 /*-----------------------------------------------编译分割线---------------------------------------------------*/
 
 /*
@@ -30,7 +33,7 @@ const FRAME = {
 * FRAME的键值名对应的就是该FRAME所对应的组件名字
 *
 * */
-import Vue from "vue";
+import Vue from "vue"
 import {getUrlParams, isUrl} from '../../utils/assist'     //页面辅助方法类
 //页面预先注册，用于webpack识别时候打包成当个文件，引用时候通过异步请求加载后载入
 
@@ -92,12 +95,12 @@ const Tabs = {
         activeFrameId = frameId;
     },
     //新增标签
-    create (frameId,frameName) {
+    create (frameId,frameTitle) {
         let $tabList = document.querySelector('.tabs-list');
-        let title = FRAME[frameName].title;
+        // let title = FRAME[frameName].title;
         let $li = document.createElement("li");
         $li.dataset.id = frameId;
-        $li.innerHTML = ` <label>${title}</label>
+        $li.innerHTML = ` <label>${frameTitle}</label>
                               <i class="remove circle icon"></i>`;
         $tabList.appendChild($li);
     },
@@ -153,11 +156,18 @@ const Create = function (type = 1, url, params=null) {
     let $frameList = document.querySelector('.frame-pages'),
         pageTemplate = document.createElement('div'),
         frameId = "", frameName="";
-    pageTemplate.classList.add("page");
+        pageTemplate.classList.add("page");
+
     if(type === 0){
-        frameId = url;
-        pageTemplate.innerHTML = `<iframe src="${url}"></iframe>`;
-        openedFrames.push(url);
+        frameId = params;
+        frameName = url;
+        pageTemplate.id = frameId;
+        pageTemplate.innerHTML = `<iframe class="page-iframe" frameborder="no" border="0" marginwidth="0" marginheight="0" src="${url}"></iframe>`;
+        openedFrames.push(frameId);
+        //插入标签模板
+        Tabs.create(frameId,frameName);
+        //插入页面模板
+        $frameList.appendChild(pageTemplate);
     }else{
         if(type === 1){
             frameId = url;
@@ -171,23 +181,23 @@ const Create = function (type = 1, url, params=null) {
             frameName = url.name;
         }
 
-        pageTemplate.innerHTML = `<page-node></page-node>`;
 
+        let RandName = "page" + new Date().getMilliseconds();
+        pageTemplate.innerHTML = `<${RandName}></${RandName}>`;
+        //插入标签模板
+        Tabs.create(frameId,FRAME[frameName].title);
         //插入页面模板
         $frameList.appendChild(pageTemplate);
-        //插入标签模板
-        Tabs.create(frameId,frameName);
+
         //添加vue实例
         VmList[frameId] = new Vue({
-            el: 'page-node',
+            el: RandName,
             render: h => h(GetTemplate(frameName))
         });
 
     }
+
     //手动激活
-    // pageTemplate.classList.add("page","active");
-    // $frameList.querySelector("#"+activeFrameId).classList.remove("active");
-    // activeFrameId = frameId;
     Active(frameId);
 };
 
@@ -203,13 +213,14 @@ export function openFrame (obj = false) {
         let frameId = "";
 
         if(isUrl(obj)) {
+            console.log(obj)
             //iframeId为时间戳组成
-            frameId = 'iframe' + new Date();
+            frameId = 'iframe' + new Date().getTime();
             //打开iframe外链,
             if(_frameExist(frameId)){
                 Active(obj);
             }else{
-                Create(0,obj);
+                Create(0,obj,frameId);
             }
         }else{
             let params = getUrlParams(obj);
@@ -262,7 +273,7 @@ export function closeFrame(frameId) {
     let $frameList = document.querySelector('.frame-pages'),
         needActiveId = "",
         index = openedFrames.indexOf(frameId);
-    console.log(index);
+
     //记录下当前窗口的上一个id
     if(openedFrames.length === (index+1)){
         needActiveId = openedFrames[index-1];
@@ -274,8 +285,17 @@ export function closeFrame(frameId) {
     //移除标签模板
     Tabs.delete(frameId);
     //移除vue实例
-    VmList[frameId].$destroy();
-    VmList[frameId] = null;
+
+    // console.log(VmList[frameId].$listeners)
+    // console.log(VmList[frameId].$off)
+    // VmList[frameId].$off("frm-form_test");
+    if(VmList[frameId]){
+
+
+        VmList[frameId].$destroy();
+        VmList[frameId] = null;
+    }
+
     //移除模板
     $frameList.removeChild($frameList.querySelector("#"+frameId));
     openedFrames.remove(frameId);
@@ -295,9 +315,10 @@ export function closeOtherFrames() {
             //移除标签模板
             Tabs.delete(openedFrames[i]);
             //移除vue实例
-            VmList[openedFrames[i]].$destroy();
-            VmList[openedFrames[i]] = null;
-
+            if(VmList[openedFrames[i]]){
+                VmList[openedFrames[i]].$destroy();
+                VmList[openedFrames[i]] = null;
+            }
             //移除模板
             if($frameList.querySelector("#"+openedFrames[i]))
                 $frameList.removeChild($frameList.querySelector("#"+openedFrames[i]));

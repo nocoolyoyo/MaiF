@@ -52,7 +52,7 @@ module.exports = {
             {
                 test: /\.(jsx|js)$/,
                 loader: "babel-loader",
-                exclude: /node_modules/
+                exclude: /(node_modules|webuploader.html5only)/
             },
             //vue相关loaders
             {

@@ -42,19 +42,18 @@ $LineHeight:(
 
 //色板-----------------------
 $c-smt-night: #1b1c1d;  //semantic
+$c-smt-border: rgba(34,36,38,.15);  //semantic
 
-$c-primary: #95a2ff;
-$c-danger: #de432e;
-$c-warning: #de8b3d;
-$c-success: #07ab00;
-$c-info:  #51a3ff;
+$c-dreamlight: #95a2ff;
+$c-aoyi:  #51a3ff;
 $c-milka:  #f5f7f9;
 $c-silkgray:  rgb(250, 253, 255);
 $c-huiyuan:  #d7dde4;
-$c-nightlight:  #5b6270;
-$c-blood:  rgb(222, 67, 46);
-$c-lemon:   rgb(222, 172, 18);
+$c-nightlight: #3c3c3c;
+$c-blood:  #de432e;
+$c-lemon:  #de8b3d;
 $c-darklemon:  rgb(170, 130, 50);
+$c-tree: #07ab00;
 $c-darkTree:  rgb(60, 142, 40);
 $c-grayEyes:  rgb(137, 122, 98);
 $c-themeGray:  #e9eaec;
@@ -64,13 +63,28 @@ $Colors: (
         silkgray: $c-silkgray,
         huiyuan: $c-huiyuan,
         nightlight: $c-nightlight,
-        info: $c-info,
         blood: $c-blood,
         lemon: $c-lemon,
         darklemon: $c-darklemon,
         drakTree: $c-darkTree,
         grayEyes: $c-grayEyes
 );
+
+
+
+//主題配置
+
+$theme-color-main: $c-nightlight;
+$theme-color-bg: $c-milka;
+$theme-color-text: $c-milka;
+$theme-color-hr: $c-smt-border;
+$theme-color-primary: $c-aoyi;
+$theme-color-danger: $c-blood;
+$theme-color-warning: $c-lemon;
+$theme-color-success: $c-tree;
+
+
+
 //间距,尺寸-----------------------
 $s-small: 0.5rem;
 $s-middle: 1rem;
@@ -83,10 +97,24 @@ $Spaces: (
         );
 
 //边线-----------------------
-$b-box:1px solid $c-huiyuan;
-$b-divider: 1px solid $c-themeGray;
-$Borders: (
-        box: $b-box
-);
+
+$Border-normal: 1px solid rgba(34,36,38,.15);
+
+
+
+//圓角-----------------------
+
+$Border-radius-normal: .28571429rem;
+
+
+//过渡---------------------------
+$transition-normal: box-shadow .1s ease,-webkit-transform .1s ease;
+$transition-slow: all 0.5s ease;
+
+
+//阴影
+$box-shadow-normal: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+
+
 
 

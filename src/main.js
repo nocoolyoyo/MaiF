@@ -3,14 +3,20 @@ import $ from 'jquery'
 import Vue from 'vue'
 import App from './app.vue'
 import router from './router'
+import EveBus from './module/custom/EventBus'
+
 import './utils/extend'    //自定拓展库
 import './module/vendor/semanticUI/semantic.min.css'    //引入semanticUI
 import './module/vendor/semanticUI/semantic.js'//引入semanticUI
 import './assets/scss/style.scss'       //引入模块全局scss，会打包进全局文件
 
 Vue.config.debug = true;//开启错误提示
+
+
+
 //渲染根节点
 new Vue({
+    EveBus,
     router,
     el: 'app',
     render: h => h(App)

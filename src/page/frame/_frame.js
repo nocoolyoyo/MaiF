@@ -1,3 +1,5 @@
+
+
 /*-----------------------------------------------编译分割线---------------------------------------------------*/
 
 /*
@@ -89,6 +91,7 @@ const Tabs = {
     },
     //删除标签
     delete (frameId)  {
+        console.log(frameId);
         let $tabList = document.querySelector('.tabs-list');
         if($tabList.querySelector(`[data-id="${frameId}"]`))
             $tabList.removeChild($tabList.querySelector(`[data-id="${frameId}"]`));
@@ -156,15 +159,16 @@ const Create = function (type = 1, url, params=null) {
             frameName = url.name;
         }
 
-        pageTemplate.innerHTML = `<page-node></page-node>`;
 
+        let RandName = "page" + new Date().getMilliseconds();
+        pageTemplate.innerHTML = `<${RandName}></${RandName}>`;
         //插入页面模板
         $frameList.appendChild(pageTemplate);
         //插入标签模板
         Tabs.create(frameId,frameName);
         //添加vue实例
         VmList[frameId] = new Vue({
-            el: 'page-node',
+            el: RandName,
             render: h => h(GetTemplate(frameName))
         });
 
@@ -188,13 +192,14 @@ export function openFrame (obj = false) {
         let frameId = "";
 
         if(isUrl(obj)) {
+            console.log(obj)
             //iframeId为时间戳组成
             frameId = 'iframe' + new Date();
             //打开iframe外链,
             if(_frameExist(frameId)){
                 Active(obj);
             }else{
-                Create(0,obj);
+                Create(0,frameId);
             }
         }else{
             let params = getUrlParams(obj);
@@ -247,7 +252,7 @@ export function closeFrame(frameId) {
     let $frameList = document.querySelector('.frame-pages'),
         needActiveId = "",
         index = openedFrames.indexOf(frameId);
-    console.log(index);
+
     //记录下当前窗口的上一个id
     if(openedFrames.length === (index+1)){
         needActiveId = openedFrames[index-1];
@@ -259,6 +264,10 @@ export function closeFrame(frameId) {
     //移除标签模板
     Tabs.delete(frameId);
     //移除vue实例
+    console.log(VmList[frameId])
+    // console.log(VmList[frameId].$listeners)
+    // console.log(VmList[frameId].$off)
+    // VmList[frameId].$off("frm-form_test");
     VmList[frameId].$destroy();
     VmList[frameId] = null;
     //移除模板
@@ -282,12 +291,16 @@ export function closeOtherFrames() {
             //移除vue实例
             VmList[openedFrames[i]].$destroy();
             VmList[openedFrames[i]] = null;
-            openedFrames.remove(openedFrames[i]);
+
             //移除模板
             if($frameList.querySelector("#"+openedFrames[i]))
                 $frameList.removeChild($frameList.querySelector("#"+openedFrames[i]));
+
         }
     }
+    if(activeFrameId === "homePage")
+        openedFrames= ["homePage"];
+    openedFrames= ["homePage",activeFrameId ];
     Active(activeFrameId);
 }
 

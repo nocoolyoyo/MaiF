@@ -6099,5 +6099,9 @@
     ], function( preset ) {
         return preset;
     });
-    return require('webuploader');
+    return require('src/module/vendor/webuploader/module');
 });
+
+export default WebUploader;
+
+console.log(WebUploader);

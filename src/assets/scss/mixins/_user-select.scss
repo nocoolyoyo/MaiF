@@ -1,0 +1,11 @@
+//-----------------------
+//取消浏览器选择事件
+//-----------------------
+
+//取消浏览器选择事件
+@mixin user-select($value:none) {
+  -webkit-user-select: $value;
+  -moz-user-select: $value;
+  -ms-user-select: $value;
+  user-select: $value;
+}

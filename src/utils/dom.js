@@ -2,7 +2,7 @@
 import Vue from 'vue';
 const isServer = Vue.prototype.$isServer;
 
-/* istanbul ignore next */
+/* 封裝 window addEventListener */
 export const on = (function() {
     if (!isServer && document.addEventListener) {
         return function(element, event, handler) {
@@ -19,7 +19,7 @@ export const on = (function() {
     }
 })();
 
-/* istanbul ignore next */
+/* 封裝 window removeEventListener */
 export const off = (function() {
     if (!isServer && document.removeEventListener) {
         return function(element, event, handler) {
@@ -35,3 +35,17 @@ export const off = (function() {
         };
     }
 })();
+
+
+/*封裝domReady */
+
+export const beforeRender = function(VueModal,callback) {
+    let injectStr = "domReady(this.$el,$(this.$el),this);";
+    let funcString = VueModal.mounted.toString();
+    console.log(funcString);
+    funcString.substr(0,funcString.length-1);
+    funcString += injectStr;
+    console.log(funcString);
+    VueModal.mounted = eval(funcString);
+    return VueModal;
+};

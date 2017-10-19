@@ -1,7 +1,6 @@
 <!--头像UI组件-->
 <template title="标签详情页面">
     <div>123123132</div>
-
 </template>
 <style lang="scss"  scoped>
     @import "../../assets/scss/methods";
@@ -27,10 +26,35 @@
     }
 </style>
 <script>
+    import EventBus from "../../module/custom/EventBus"
+
+
+
+
+    let frmFormTest = function (data) {
+        console.log(data)
+    };
+
     export default {
         data () {
             return {
             }
-        }
+        },
+        methods: {
+        },
+        created: function () {
+            EventBus.on('frm-form_test', frmFormTest);
+        },
+        //这里是節點渲染完需要进行初始化操作
+        mounted () {
+
+            //下拉菜单初始化
+//            $('.ui.dropdown').dropdown();
+//            //菜单初始化
+//            $('.ui.accordion').accordion({exclusive:false});
+        },
+        beforeDestroy: function () {
+            EventBus.off('frm-form_test',frmFormTest);
+        },
     }
 </script>

@@ -1,7 +1,8 @@
 <!--主界面-->
 <script>
     import Vue from "vue"
-//    import Avatar from "../component/avatar/avatar.vue"
+    import EventBus from '../module/custom/EventBus'
+    import Avatar from "../component/avatar.vue"
     import {openFrame,closeFrame, closeOtherFrames}  from "./frame/frame"
 
 
@@ -28,7 +29,7 @@
 
     //页面输出对象
     export default  {
-//        components: {Avatar},
+        components: {Avatar},
         data () {
             return {
                 imgSrc: "http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9B%BE%E7%89%87&step_word=&hs=0&pn=0&spn=0&di=113392779830&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=594559231%2C2167829292&os=2394225117%2C7942915&simid=3436308227%2C304878115&adpicid=0&lpn=0&ln=1993&fr=&fmq=1508314826003_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120727%2F201995-120HG1030762.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bpw5rtv_z%26e3Bv54AzdH3Fejvp56AzdH3Fda8da0AzdH3Fdanll9_z%26e3Bip4s&gsm=&rpstart=0&rpnum=0"
@@ -54,6 +55,9 @@
             //定位到当前页面
             location(){
 
+            },
+            triggerTestEvent(){
+                EventBus.emit('frm-form_test', {params:12332});
             }
         },
         mounted () {
@@ -81,7 +85,7 @@
             <!--</nav>-->
 
             <div class="information-card">
-                <!--<avatar class="round size-md"></avatar>-->
+                <avatar class="round size-md"></avatar>
                 <h2>啊实打实的</h2>
             </div>
             <div class="ui vertical following fluid accordion text menu inverted">
@@ -115,7 +119,7 @@
                     <div class="content menu active">
                         <a class="item" @click="openFrame('tabDetail/14412333')">分隔</a>
                         <a class="item" @click="openFrame('tabDetail/145212343')">分隔</a>
-                        <a class="item" @click="openFrame('tabDetail/1433123453')">分隔</a>
+                        <a class="item" @click="openFrame('http://www.baidu.com')">分隔</a>
                     </div>
                 </div>
             </div>
@@ -132,7 +136,7 @@
             </header>
             <main class="frame-container">
                 <nav class="frame-tabs ui">
-                    <div class="tabs-tools">
+                    <div class="tabs-left-tools">
                         <div><i class="angle double left icon"></i></div>
                     </div>
                     <div class="tab-list-container">
@@ -143,7 +147,7 @@
                         </ul>
                     </div>
 
-                    <div class="tabs-tools">
+                    <div class="tabs-right-tools">
                         <div><i class="angle double right icon"></i></div>
                         <div class="ui icon dropdown">
                             <i class="clone icon"></i>
@@ -161,6 +165,7 @@
                             <div class="ui card">
                                 <div class="content">
                                     <div class="header">Project Timeline</div>
+                                    <button class="ui facebook button" @click="triggerTestEvent"><i class="facebook icon"></i> 事件傳播 </button>
                                 </div>
                                 <div class="content">
                                     <h4 class="ui sub header">活动</h4>
@@ -350,10 +355,11 @@
     $home-font-size-frame-tabs: 14px;
     $home-border-height-slim: 1px;
     $home-border-height-bold: 2px;
-    $home-border-frame-tabs: $home-border-height-bold solid $c-smt-night;
-    $home-border-tabs-list-li: $home-border-height-slim solid $c-huiyuan;
+    $home-border-frame-tabs: $home-border-height-bold solid $theme-color-main;
+    $home-border-tabs-list-li: $home-border-height-slim solid $theme-color-hr;
     $home-transition-tabs:  all 0.3s ease;
     $home-tab-max-size:  200px;
+
     .layout {
         height:100%;
         width: 100%;
@@ -362,12 +368,12 @@
         .layout-menu {
             height: inherit;
             width: $home-width-menu;
-            background-color: $c-smt-night;
+            background-color: $theme-color-main;
             padding: 0 20px;
             border-radius: 0;
             .information-card {
-                margin: 10px;
-                color: white;
+                margin: 20px 0;
+                color: $theme-color-text;
                 display: flex;
                 align-items: center;
                 flex-direction: column;
@@ -401,9 +407,13 @@
                 flex: 1;
                 display: flex;
                 flex-direction: column;
+
+
+
+
                 .frame-tabs {
                     user-select: none;
-                    background-color: white;
+                    background-color: $theme-color-text;
                     height: $home-height-frame-tabs;
                     box-sizing: border-box;
                     border-top:$home-border-tabs-list-li;
@@ -414,22 +424,28 @@
                         user-select: none;
                         height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
                     }
-                    .tabs-home,.tabs-tools>div {
+                    .tabs-home,.tabs-left-tools>div,.tabs-right-tools>div {
                         box-sizing: border-box;
                         cursor: pointer;
                         width: $home-height-frame-tabs;
                         font-size: large;
-                        line-height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
+                         line-height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
                         text-align: center;
-                        background-color: $c-silkgray;
+                        background-color: $theme-color-bg;
                         i {
                             margin-right: 0;
                         }
                     }
-                    .tabs-tools {
+                    .tabs-left-tools {
                         &>div {
                             display: inline-block;
+                            border-right: $home-border-tabs-list-li;
+                        }
+                    }
+                    .tabs-right-tools {
+                        &>div {
                             border-left: $home-border-tabs-list-li;
+                            display: inline-block;
                         }
                     }
                     .tab-list-container {
@@ -457,7 +473,7 @@
                             /*float: left;*/
                             align-items: center;
                             justify-content: space-between;
-                            line-height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
+
                             padding: 0 8px;
                             transition:$home-transition-tabs;
                             label {
@@ -474,12 +490,12 @@
                                 width: $home-width-i;
                                 margin-right: 0;
                                 &:hover {
-                                    color: $c-danger;
+                                    color: $theme-color-danger;
                                 }
                             }
                             &.active {
                                 color: white;
-                                background-color: $c-smt-night;
+                                background-color: $theme-color-main;
                             }
                             &:hover {
                                 opacity: 0.8;
@@ -507,6 +523,10 @@
                         height:100%;
                         &.active {
                             display: block;
+                        }
+                        .page-iframe {
+                            width: 100%;
+                            height: 99%;
                         }
                     }
                 }
