@@ -20,11 +20,7 @@
 
 
     let initDimmer = function (el) {
-        console.log($(el));
-        console.log($(el).find('.image'));
-        $(el).find('.image').eq(0).dimmer({on:'hover'});
-
-
+        $(el).find('.image').dimmer({on:'hover'});
     };
 
     let init = function () {
@@ -129,63 +125,44 @@
                     <div class="ui dimmer transition hidden">
                         <div class="content">
                             <div class="center">
-                                <div class="ui inverted button">Add Friend</div>
+                                <button class="ui  green  compact button tiny">放大</button>
+                                <button class="ui  red compact button tiny">删除</button>
                             </div>
                         </div>
                     </div>
                     <img src="../../assets/image/avatar.jpg">
                 </div>
                 <div class="content">
-                    <a class="header">Team Fu</a>
+                    <!--<a class="header">Team Fu</a>-->
                     <div class="meta">
-                        <span class="date">Create in Sep 2014</span>
+                        <span class="date">文件名qweqwewqeqwe</span>
                     </div>
                 </div>
-                <div class="extra content">
-                    <a><i class="users icon"></i> 2 Members </a>
-                </div>
+                <!--<div class="extra content">-->
+                <!--<a><i class="users icon"></i> 2 Members </a>-->
+                <!--</div>-->
             </div>
             <div class="card">
                 <div class="blurring dimmable image">
                     <div class="ui dimmer transition hidden">
                         <div class="content">
                             <div class="center">
-                                <div class="ui inverted button">Add Friend</div>
+                                <button class="ui  green  compact button tiny">放大</button>
+                                <button class="ui  red compact button tiny">删除</button>
                             </div>
                         </div>
                     </div>
                     <img src="../../assets/image/avatar.jpg">
                 </div>
                 <div class="content">
-                    <a class="header">Team Fu</a>
+                    <!--<a class="header">Team Fu</a>-->
                     <div class="meta">
-                        <span class="date">Create in Sep 2014</span>
+                        <span class="date">文件名</span>
                     </div>
                 </div>
-                <div class="extra content">
-                    <a><i class="users icon"></i> 2 Members </a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="blurring dimmable image">
-                    <div class="ui dimmer transition hidden">
-                        <div class="content">
-                            <div class="center">
-                                <div class="ui inverted button">Add Friend</div>
-                            </div>
-                        </div>
-                    </div>
-                    <img src="../../assets/image/avatar.jpg">
-                </div>
-                <div class="content">
-                    <a class="header">Team Fu</a>
-                    <div class="meta">
-                        <span class="date">Create in Sep 2014</span>
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a><i class="users icon"></i> 2 Members </a>
-                </div>
+                <!--<div class="extra content">-->
+                <!--<a><i class="users icon"></i> 2 Members </a>-->
+                <!--</div>-->
             </div>
             <!--<div class="card">-->
                 <!--<div class="image">-->
@@ -230,7 +207,7 @@
     @import "../../assets/scss/methods";
     $uploader-space-normal:0.5rem;
     $uploader-height-action-container: 200px;
-    $uploader-border-action-container: 5px dashed $c-themeGray;
+    $uploader-border-action-container: 2px dashed $c-themeGray;
     img{
         max-width: 100%;
     }
@@ -243,6 +220,10 @@
         width: auto;
         .preview-container {
             /*@include gallery(6)*/
+            .card>.content {
+                @include ellipsis();
+                padding: 0.4em;
+            }
         }
         .action-container {
             user-select: none;

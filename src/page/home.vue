@@ -1,6 +1,5 @@
 <!--主界面-->
 <script>
-    import Vue from "vue"
     import EventBus from '../module/custom/EventBus'
     import Avatar from "../component/avatar.vue"
     import {openFrame,closeFrame, closeOtherFrames}  from "./frame/frame"
@@ -20,8 +19,10 @@
 
     //节点渲染后（mounted）的初始化
     function initAfterRender() {
-        //下拉菜单初始化
-        $('.ui.dropdown').dropdown();
+        console.log( $)
+        console.log( $('.ui.dropdown'))
+//        //下拉菜单初始化
+//        $('.ui.dropdown').eq(0).dropdown();
         //菜单初始化
         $('.ui.accordion').accordion({exclusive:false});
 

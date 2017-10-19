@@ -21,7 +21,9 @@ module.exports = {
     entry: {
         main: __dirname + "/src/main.js",
         //常用的第三方库封装
-        vendor: ['jquery'],
+        vendor: ['jquery',
+                      './src/module/vendor/semanticUI/semantic.min.css',
+                      './src/module/vendor/semanticUI/semantic.min.js']
 
     },
     output: {

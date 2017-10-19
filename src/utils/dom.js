@@ -1,5 +1,5 @@
 //封装eventListener
-import Vue from 'vue';
+// import Vue from 'vue';
 const isServer = Vue.prototype.$isServer;
 
 /* 封裝 window addEventListener */

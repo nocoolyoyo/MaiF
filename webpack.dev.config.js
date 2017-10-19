@@ -18,10 +18,14 @@ const autoprefixer = require('autoprefixer');
 module.exports = {
     devtool: '#eval-source-map',
     entry: {
-        main: __dirname + "/src/main.js",
-        //常用的第三方库封装
-        vendor: ['jquery'],
-
+        main: [
+            //全局必用第三方库封装
+            'jquery',
+            'vue',
+            './src/module/vendor/semanticUI/semantic.min.css',
+            './src/module/vendor/semanticUI/semantic.min.js',
+            __dirname + "/src/main.js",
+        ],
     },
     output: {
         path: __dirname + "/dist",
@@ -52,7 +56,7 @@ module.exports = {
             {
                 test: /\.(jsx|js)$/,
                 loader: "babel-loader",
-                exclude: /(node_modules|webuploader.html5only)/
+                exclude: /(node_modules|webuploader)/
             },
             //vue相关loaders
             {
@@ -109,6 +113,11 @@ module.exports = {
             {
                 test: require.resolve('jquery'),
                 loader: 'expose-loader?jQuery!expose-loader?$'
+            },
+            //Vue对象暴露
+            {
+                test: require.resolve('vue'),
+                loader: 'expose-loader?Vue'
             }
         ]
     },
@@ -125,6 +134,6 @@ module.exports = {
         //     names: ['vendor', 'manifest']//manifest:抽取变动部分，防止第三方控件的多次打包
         // }),
         //webpack忽略打包
-        // new webpack.IgnorePlugin(/\.\/vendor.js$/)
+       //new webpack.IgnorePlugin(/\.\/vendor.js$/)
     ]
 };
