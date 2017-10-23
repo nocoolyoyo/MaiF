@@ -58,12 +58,12 @@ let VmList = {};
  *   openedFrames用于记录当前窗口中打开的页面，后期可根据需求写入localStorage做断电保存
  *   openedFrames只记录当前url, url组织方式与普通url一样
  */
-let openedFrames = ["homePage"];
+let openedFrames = ["home"];
 
 /*
  *   记录当前激活状态的id,默认是主页
  */
-let activeFrameId = "homePage";
+let activeFrameId = "home";
 /**
  * 检查组件是否已注册过
  * @param frameName
@@ -328,9 +328,9 @@ export function closeOtherFrames() {
 
         }
     }
-    if(activeFrameId === "homePage")
-        openedFrames= ["homePage"];
-    openedFrames= ["homePage",activeFrameId ];
+    if(activeFrameId === "home")
+        openedFrames= ["home"];
+    openedFrames= ["home",activeFrameId ];
     Active(activeFrameId);
 }
 

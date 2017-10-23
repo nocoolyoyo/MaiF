@@ -109,7 +109,7 @@
                     </div>
                 </nav>
                 <div class="frame-pages">
-                    <div id="homePage" class="page active">
+                    <div id="home" class="page active">
                         <home></home>
                     </div>
                 </div>
@@ -157,10 +157,9 @@
 
         }
         .layout-main {
-            display: flex;
+
             height: 100%;
             overflow:hidden;
-            flex-direction: column;
             flex:1;
             //顶部工具条
             .top-tools {
@@ -174,10 +173,10 @@
 
             //frame框架样式
             .frame-container {
-                /*height:100%;*/
+                height:100%;
                 flex: 1;
-                display: flex;
-                flex-direction: column;
+                /*display: flex;*/
+                /*flex-direction: column;*/
                 .frame-tabs {
                     user-select: none;
                     background-color: $theme-color-text;
@@ -273,7 +272,7 @@
                 }
                 .frame-pages {
                     height: 100%;
-                    flex: 1;
+                    /*flex: 1;*/
                     .page {
                         display: none;
                         right: 0;

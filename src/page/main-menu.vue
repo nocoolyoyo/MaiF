@@ -9,7 +9,6 @@
 <script>
     import {openFrame}  from "./frame/frame"
     export default {
-
         methods: {
             openFrame (url){
                 openFrame(url);
