@@ -2,16 +2,17 @@
 <script>
     //页面输出对象
     export default  {
-
         data () {
             return {
             }
         },
-
         methods: {
             triggerTestEvent(){
                 EventBus.emit('frm-form_test', {params:12332});
             }
+        },
+        mounted(){
+            console.log(this)
         }
     };
 </script>

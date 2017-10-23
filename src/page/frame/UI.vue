@@ -17,10 +17,11 @@
     import CommentsMock from "../../component/comments/template"
     import EventBus from "../../module/custom/EventBus"
     import Comments from "../../component/comments/comments.vue"
+    import swal from "../../module/vendor/sweetalert/sweetalert.min"
     //這裏是頁面節點喧嚷完畢后的回調，相當於jquery的domReady
     function domReady(dom,$dom,Vm){
 
-
+        swal("Hello world!");
         console.log(CommentsMock)
 
 
@@ -28,6 +29,9 @@
     //页面输出对象
     export default {
         components: {Comments},
+        prop: {
+            params: Object
+        },
         data () {
             return {
                 CommentsMock:CommentsMock

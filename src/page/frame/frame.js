@@ -74,7 +74,6 @@ let activeFrameId = "homePage";
 //     return !!UseList[frameName];
 // }
 
-
 /**
  * 根据页面名字获取页面数据
  * @param frameName 组件名
@@ -187,7 +186,6 @@ const Create = function (type = 1, url, params=null) {
             frameName = url.name;
         }
 
-
         let RandName = "page" + new Date().getMilliseconds();
         pageTemplate.innerHTML = `<${RandName}></${RandName}>`;
         //插入标签模板
@@ -200,7 +198,6 @@ const Create = function (type = 1, url, params=null) {
             el: RandName,
             render: h => h(GetTemplate(frameName))
         });
-
     }
 
     //手动激活

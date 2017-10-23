@@ -67,7 +67,8 @@
 
     //這裏是頁面節點喧嚷完畢后的回調，相當於jquery的domReady
     function domReady(dom,$dom,Vm){
-
+        console.log(Vm.$children);
+        console.log(Vm.$refs);
         dom.querySelector("#exp");
         $dom.find("#exp").on("click", function () {
             console.log(123213)

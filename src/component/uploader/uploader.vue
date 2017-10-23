@@ -83,7 +83,7 @@
     };
 
     let initUploader = function (vm) {
-        console.log(vm)
+
         uploader = WebUploader.create(buildUploaderOptions(vm));
 
         // 当有文件添加进来的时候
@@ -127,6 +127,7 @@
 
 
     export default {
+        name: "uploader",
         data () {
             return {
                 //WebUploader需要替换的id
@@ -144,6 +145,12 @@
 //                    pick :"#" + this.pickerId;
 //                }
             },
+        },
+        created(){
+            this.$on('on-form-up-load', (field) => {
+                if (field) this.fields.push(field);
+                return false;
+            });
         },
         methods: {
             chooseFile() {

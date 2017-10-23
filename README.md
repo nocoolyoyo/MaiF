@@ -5,13 +5,21 @@
 1. 项目运行前确保安装node环境，然后在目录地下运行`npm install`安装项目依赖包
 2. 然后运行npm run start进入开发
 
-## 开发说明
 
-1. 新建一个页面时候只要在`page/frame`目录下新建一个.vue文件即可，文件的结构参照目录下from.vue的结构
+## 主页面说明
+1. 主页面在page目录下的main.vue文件
+2. 页面菜单结构是 main-menu文件，左侧的菜单数据写在这
+
 
 ## frame页面说明
-### 1. 页面结构
-    <template title="表单元素展示">
+### 1. 开发说明
+1. 新建一个页面时候只要在`page/frame`目录下新建一个.vue文件即可，文件的结构参照目录下from.vue的结构
+2. 打开关闭页面的方法是使用frame目录下的`openFrame，closeFrame`方法，内部页面的url组织方式为
+    `frame/id?param1=value1&param2=value2`,外链则是i常规的url
+    例子：不可重复页`openFrame('tab')`，可重复页`openFrame('tabDetail/12345')`，外链`openFrame('http://www.baidu.com'')`
+    内不页面的参数则会组织成params对象传入到页面对象中
+### 2. 页面结构
+    <template title="这里是页面的标题，必须填入，用于标签头部页面说明">
          //这里是页面的html模板，写入模板的数据应该是
          <avatar></avatar>
     </template>
@@ -71,7 +79,14 @@
             },
         };
     </script>
-  
+
+## 第三方插件管理
+
+1. 第三方插件统一放在./module/vendor/目录下，然后通过import方式引入
+   例子：
+        `import swal from "../../module/vendor/sweetalert/sweetalert.min"
+         swal("Hello world!");`
+       
 
 
 

@@ -7,10 +7,12 @@
     }
 -->
 <script>
-    import {openFrame,closeFrame, closeOtherFrames}  from "./frame/frame"
+    import {openFrame}  from "./frame/frame"
     export default {
-        data () {
-            return {
+
+        methods: {
+            openFrame (url){
+                openFrame(url);
             }
         },
         mounted () {
@@ -22,10 +24,27 @@
 
 <template>
     <div class="ui vertical following fluid accordion text menu inverted">
-        <div class="item active">
+        <div class="item">
+            <a class="title active"><i class="dropdown icon"></i><b>大标题</b></a>
+            <div class="content menu active">
+                <a class="item" @click="openFrame('form')">表单</a>
+                <a class="item" @click="openFrame('UI')">UI元素</a>
+                <a class="item" @click="openFrame('tabDetail/12')">分隔</a>
+                <div class="item">
+                    <a class="title"><i class="dropdown icon"></i><b>大标题</b></a>
+                    <div class="content menu">
+                        <a class="item" @click="openFrame('form')">表单</a>
+                        <a class="item" @click="openFrame('UI')">UI元素</a>
+                        <a class="item" @click="openFrame('tabDetail/12')">分隔</a>
+                        <a class="item" @click="openFrame('tabDetail/13')">分隔</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item">
             <a class="title active"><i class="dropdown icon"></i> <b>大标题</b></a>
             <div class="content menu active">
-                <a class="item active" @click="openFrame('form')">表单</a>
+                <a class="item" @click="openFrame('form')">表单</a>
                 <a class="item" @click="openFrame('UI')">UI元素</a>
                 <a class="item" @click="openFrame('tabDetail/12')">分隔</a>
                 <a class="item" @click="openFrame('tabDetail/13')">分隔</a>
@@ -57,7 +76,12 @@
         </div>
     </div>
 </template>
-
 <style lang="scss">
+    @import "../assets/scss/methods";
+
+    .content.menu {
+        margin-left: 1rem !important;
+    }
+
 </style>
 
