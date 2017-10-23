@@ -11,6 +11,9 @@
 1. 页面UI框架是基于semanticUI,所以详细的UI元素可以参考[semanticUI](http://www.semantic-ui.cn/ "semanticUI 官网")
 2. 主页面在page目录下的main.vue文件
 3. 页面菜单结构是 main-menu文件，左侧的菜单数据写在这
+4. 框架是仿多页iframe框架设计的，但是实际上是单页混合多页应用，每个内部页面frame页都是Vue实例，但是如果是外部链接则会是iframe嵌外链页面
+5. 每个页面的状态都是独立的，不存在切换页面已有的页面状态会丢失情况
+6. 借用公有vue实例实现任意页面之前的通信（今后有可能会做优化）
 
 
 ## frame页面说明
