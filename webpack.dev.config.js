@@ -45,6 +45,9 @@ module.exports = {
     },
 
     devServer: {
+        //publicPath: '/dist/',
+        host: '192.168.0.104',
+        port: 8090,
         contentBase: "./dist",//本地服务器所加载的页面所在的目录
         historyApiFallback: true,//不跳转
         inline: true//实时刷新
