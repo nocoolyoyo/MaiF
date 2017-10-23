@@ -91,7 +91,7 @@
                     <div class="tab-list-container">
                         <!--todo：标签页溢出滚动-->
                         <ul class="tabs-list" @click="tabClickHandler($event)">
-                            <li class="active"  data-id="homePage">
+                            <li class="active"  data-id="home">
                                 <i class="home icon"></i>
                             </li>
                         </ul>
