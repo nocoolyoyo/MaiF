@@ -1,7 +1,7 @@
 const form = resolve => require.ensure([],() => resolve(require('./form.vue')), 'form');
 const tab = resolve => require.ensure([],() => resolve(require('./tab.vue')), 'tab');
 const tabDetail = resolve => require.ensure([],() => resolve(require('./tabDetail.vue')), 'tabDetail');
-
+const UI = resolve => require.ensure([],() => resolve(require('./UI.vue')), 'UI');
 const FRAME = {
   "form": {
     "title": "表单元素展示"
@@ -11,10 +11,11 @@ const FRAME = {
   },
   "tabDetail": {
     "title": "标签详情页面"
+  },
+  "UI": {
+    "title": "表单元素展示"
   }
 };
-
-
 /*-----------------------------------------------编译分割线---------------------------------------------------*/
 
 /*
@@ -156,7 +157,7 @@ const Create = function (type = 1, url, params=null) {
     let $frameList = document.querySelector('.frame-pages'),
         pageTemplate = document.createElement('div'),
         frameId = "", frameName="";
-        pageTemplate.classList.add("page");
+    pageTemplate.classList.add("page");
 
     if(type === 0){
         frameId = params;

@@ -5,53 +5,19 @@
 
 let gulp = require('gulp');
 let concat = require('gulp-concat');
-//gulp 输出文件的
-let _outputPath = (dirname)=> {
-    let path = "./src/gulp/";
-    if(typeof dirname === 'undefined')
-        return path;
-    return path + dirname;
-};
-let _vendorPath = (dirname)=> {
-    let path = "./src/module/vendor/";
-    if(typeof dirname === 'undefined')
-        return path;
-    return path + dirname;
-};
+let watchPath = './src/page/frame/';
 
-const framePath = "./src/page/frame";
-const componentPath = "./src/page/frame";
+import makeEntry from "./makeEntry"
 
 
-//输出最终编译版本stylesheet文件
-
-gulp.task('vendor', function() {
-    gulp.src([
-        _vendorPath('jquery/jquery.min.js'),
-        _vendorPath('jquery/semanticUI/semantic.min.css'),
-        _vendorPath('jquery/semanticUI/semantic.min.js')])
-        .pipe(
-            concat('vendor.js'))
-        .pipe(
-            gulp.dest(_outputPath()))
+//目录配置生成
+gulp.task('build', function(){
+    makeEntry();
 });
-
-//根据src/page/frame下的文件生成对应的模块请求头写入到_frame.js，免去手动添加的烦恼
-gulp.task('build-frame-entry', function() {
-    gulp.src([
-        _vendorPath('jquery/jquery.min.js'),
-        _vendorPath('jquery/semanticUI/semantic.min.css'),
-        _vendorPath('jquery/semanticUI/semantic.min.js')])
-        .pipe(
-            concat('vendor.js'))
-        .pipe(
-            gulp.dest(_outputPath()))
-});
-
 //文件监听
-// gulp.task('watch', function(){
-//     gulp.watch('static/scss/**/*.scss', ['build']);
-//     // Other watchers
-// });
+gulp.task('watch', function(){
+    gulp.watch(watchPath, ['build']);
+    // Other watchers
+});
 // // 输出全部文章文件
-gulp.task('start', ['vendor']);
+gulp.task('start', ['build',"watch"]);

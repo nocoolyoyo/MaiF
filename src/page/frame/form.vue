@@ -7,8 +7,7 @@
             <span class="ui label small"><i class="mail icon"></i>2017-05-23</span>
         </h2>
 
-
-        <uploader></uploader>
+        <uploader :options='uploadOpts'></uploader>
 
 
         <div class="ui card">
@@ -62,6 +61,9 @@
 <script>
     import EventBus from "../../module/custom/EventBus"
     import Uploader from "../../component/uploader/uploader.vue"
+    import Table from "../../component/table/table.vue"
+
+
 
     //這裏是頁面節點喧嚷完畢后的回調，相當於jquery的domReady
     function domReady(dom,$dom,Vm){
@@ -83,7 +85,9 @@
         components: { Uploader },
         data () {
             return {
-
+                uploadOpts: {
+                    server: "www.baidu.com"
+                }
             }
         },
         methods: {

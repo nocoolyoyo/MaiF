@@ -20,8 +20,6 @@ const Config = {
 let UseList = {};
 
 
-
-
 /**
  * 检查组件是否已注册过
  * @param componentName
@@ -30,7 +28,6 @@ let UseList = {};
 function checkUsing (componentName) {
     return !!UseList[componentName];
 }
-
 
 /**
  * 组件调度注册【注意：动态组件加载是异步，如果是一个列表页面中重复使用的动态组件，请务必使用require先将该包引入再构建界面，此时组件加载将变成同步的】

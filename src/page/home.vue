@@ -1,7 +1,7 @@
 <!--主界面-->
 <script>
     import EventBus from '../module/custom/EventBus'
-    import Avatar from "../component/avatar.vue"
+    import Avatar from "../component/avatar/avatar.vue"
     import {openFrame,closeFrame, closeOtherFrames}  from "./frame/frame"
 
 
@@ -19,13 +19,8 @@
 
     //节点渲染后（mounted）的初始化
     function initAfterRender() {
-        console.log( $)
-        console.log( $('.ui.dropdown'))
-//        //下拉菜单初始化
-//        $('.ui.dropdown').eq(0).dropdown();
         //菜单初始化
         $('.ui.accordion').accordion({exclusive:false});
-
     }
 
     //页面输出对象
@@ -70,23 +65,11 @@
 <template>
     <div class="layout">
         <nav class="layout-menu">
-            <!--<a class="item" @click="openFrame('tab')">菜单1<i class="angle right icon"></i></a>-->
-            <!--<a class="item" @click="openFrame('tabDetail/12')">菜单2<i class="angle right icon"></i></a>-->
-            <!--<a class="item" @click="openFrame('tabDetail/12')">菜单2<i class="angle right icon"></i></a>-->
-            <!--<a class="item">-->
-                <!--菜单3<i class="angle down icon"></i>-->
-            <!--</a>-->
-            <!--<nav class="ui inverted vertical menu">-->
-                <!--<a class="item">菜单1<i class="angle right icon"></i></a>-->
-                <!--<a class="item">菜单2<i class="angle right icon"></i></a>-->
-                <!--<a class="item">-->
-                    <!--菜单3<i class="angle down icon"></i>-->
-                    <!--<a class="item">菜单2</a>-->
-                <!--</a>-->
-            <!--</nav>-->
+
+            <!--todo:菜单改为脚本配置，3级嵌套-->
 
             <div class="information-card">
-                <avatar class="round size-md"></avatar>
+                <avatar class="round size-md" img-src="http://images2015.cnblogs.com/blog/1103730/201703/1103730-20170301141110548-1837926342.png"></avatar>
                 <h2>啊实打实的</h2>
             </div>
             <div class="ui vertical following fluid accordion text menu inverted">
@@ -94,7 +77,7 @@
                     <a class="title active"><i class="dropdown icon"></i> <b>大标题</b></a>
                     <div class="content menu active">
                         <a class="item active" @click="openFrame('form')">表单</a>
-                        <a class="item" @click="openFrame('tabDetail/1')">分隔</a>
+                        <a class="item" @click="openFrame('UI')">UI元素</a>
                         <a class="item" @click="openFrame('tabDetail/12')">分隔</a>
                         <a class="item" @click="openFrame('tabDetail/13')">分隔</a>
                     </div>
@@ -141,13 +124,13 @@
                         <div><i class="angle double left icon"></i></div>
                     </div>
                     <div class="tab-list-container">
+                        <!--todo：标签页溢出滚动-->
                         <ul class="tabs-list" @click="tabClickHandler($event)">
                             <li class="active"  data-id="homePage">
                                 <i class="home icon"></i>
                             </li>
                         </ul>
                     </div>
-
                     <div class="tabs-right-tools">
                         <div><i class="angle double right icon"></i></div>
                         <div class="ui icon dropdown">
@@ -161,6 +144,7 @@
                     </div>
                 </nav>
                 <div class="frame-pages">
+                    <!--todo:主页抽离成frame页模板-->
                     <div id="homePage" class="page active">
                         <div class="frame">
                             <div class="ui card">

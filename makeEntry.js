@@ -18,35 +18,35 @@ const frameConfig = {
         }
     }
 };
-const componentPath = {
-    path:'./src/page/component/',
-    entry: '_component.js'
-};
+// const componentPath = {
+//     path:'./src/page/component/',
+//     entry: '_component.js'
+// };
+
+// function buildLoaderData(ta) {
+//
+//     task.myLoader.forEach(function (val1,index1) {
+//         let tempData = {};
+//         val1.structure.forEach(function (val2,index2) {
+//
+//             tempData[baseName] = {};
+//             tempData[baseName][val2.name] = tempfile.toString().match(val2.matchReg)[1];
+//         });
+//
+//
+//         myLoaderString +=
+//             content += `const ${val1} = ${tempData.toString()}`;
+//     });
+//
+//
+// }
 
 function buildWebpackLoader (name,fullName) {
     return `const ${name} = resolve => require.ensure([],() => resolve(require('./${fullName}')), '${name}');\n`;
 }
 
-function buildLoaderData(ta) {
-
-    task.myLoader.forEach(function (val1,index1) {
-        let tempData = {};
-        val1.structure.forEach(function (val2,index2) {
-
-            tempData[baseName] = {};
-            tempData[baseName][val2.name] = tempfile.toString().match(val2.matchReg)[1];
-        });
-
-
-        myLoaderString +=
-            content += `const ${val1} = ${tempData.toString()}`;
-    });
-
-
-}
-
-
 function run(task) {
+    let task = frameConfig;
     let moduleContent = "";
     let walker = Walk.walk(task.path);
     let myLoaderData = (function(){
@@ -92,6 +92,7 @@ function run(task) {
         next();
     });
 
+    //walker执行完毕回调
     walker.on("end", function () {
         let fileContent = Fs.readFileSync(task.path + task.entry);
         let myLoaderContent = "";
@@ -106,4 +107,5 @@ function run(task) {
 
 }
 
-run(frameConfig);
+
+export default run;
