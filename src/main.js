@@ -8,8 +8,6 @@ import './assets/scss/style.scss'       //引入模块全局scss，会打包进�
 
 Vue.config.debug = true;//开启错误提示
 
-
-
 //渲染根节点
 new Vue({
     router,

@@ -45,7 +45,7 @@ function buildWebpackLoader (name,fullName) {
     return `const ${name} = resolve => require.ensure([],() => resolve(require('./${fullName}')), '${name}');\n`;
 }
 
-function run(task) {
+function run() {
     let task = frameConfig;
     let moduleContent = "";
     let walker = Walk.walk(task.path);
@@ -106,6 +106,4 @@ function run(task) {
     });
 
 }
-
-
-export default run;
+run();

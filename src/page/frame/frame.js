@@ -1,10 +1,14 @@
 const form = resolve => require.ensure([],() => resolve(require('./form.vue')), 'form');
+const home = resolve => require.ensure([],() => resolve(require('./home.vue')), 'home');
 const tab = resolve => require.ensure([],() => resolve(require('./tab.vue')), 'tab');
 const tabDetail = resolve => require.ensure([],() => resolve(require('./tabDetail.vue')), 'tabDetail');
 const UI = resolve => require.ensure([],() => resolve(require('./UI.vue')), 'UI');
 const FRAME = {
   "form": {
     "title": "表单元素展示"
+  },
+  "home": {
+    "title": "主页"
   },
   "tab": {
     "title": "标签页面"
@@ -16,6 +20,7 @@ const FRAME = {
     "title": "表单元素展示"
   }
 };
+
 /*-----------------------------------------------编译分割线---------------------------------------------------*/
 
 /*

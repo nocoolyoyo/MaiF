@@ -15,7 +15,6 @@
 <script>
     //测试数据
     import CommentsMock from "../../component/comments/template"
-
     import EventBus from "../../module/custom/EventBus"
     import Comments from "../../component/comments/comments.vue"
     //這裏是頁面節點喧嚷完畢后的回調，相當於jquery的domReady

@@ -61,7 +61,7 @@
 <script>
     import EventBus from "../../module/custom/EventBus"
     import Uploader from "../../component/uploader/uploader.vue"
-    import Table from "../../component/table/table.vue"
+//    import Table from "../../component/table/table.vue"
 
 
 
