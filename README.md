@@ -1,14 +1,16 @@
 #基于vue模块化后台构建系统框架
 
+
 ## 部署和开始
 
 1. 项目运行前确保安装node环境，然后在目录地下运行`npm install`安装项目依赖包
 2. 然后运行npm run start进入开发
 
 
-## 主页面说明
-1. 主页面在page目录下的main.vue文件
-2. 页面菜单结构是 main-menu文件，左侧的菜单数据写在这
+## 说明
+1. 页面UI框架是基于semanticUI,所以详细的UI元素可以参考[semanticUI](http://www.semantic-ui.cn/ "semanticUI 官网")
+2. 主页面在page目录下的main.vue文件
+3. 页面菜单结构是 main-menu文件，左侧的菜单数据写在这
 
 
 ## frame页面说明
@@ -19,6 +21,7 @@
     例子：不可重复页`openFrame('tab')`，可重复页`openFrame('tabDetail/12345')`，外链`openFrame('http://www.baidu.com'')`
     内不页面的参数则会组织成params对象传入到页面对象中
 ### 2. 页面结构
+```vue
     <template title="这里是页面的标题，必须填入，用于标签头部页面说明">
          //这里是页面的html模板，写入模板的数据应该是
          <avatar></avatar>
@@ -37,8 +40,8 @@
        //因为是做模块化管理，有些像$和Vue已经定义在全局的则不需要在页面单独引入，
        //所以当你需要用到一些其他模块或者组件时候，就像上方import 变量名 from 模块路径引入
        //有些模块提供多方法要像上面页面页面辅助方法类引入
-
-   
+    
+    
         //因为可能大部分分还是依赖于jquery的节点操作，所以这里封装了一个domReady方法，
         //因为是单页模拟多页架构，如果用以往HTML根文档取节点，在页面多时候肯定会造成一定性能上的影响（虽然可以忽略），
         //所以用dom替代document, $dom.find()取节点替代$()取节点,Vm则是vue对象
@@ -46,7 +49,7 @@
         
        
         function domReady(dom,$dom,Vm){
-   
+    
             dom.querySelector("#exp");
             $dom.find("#exp").on("click", function () {
          
@@ -79,14 +82,23 @@
             },
         };
     </script>
+```
+
+## 组件管理
+1. 项目自己封装的vue组件都在`component`目录下，组件会不断地完善，有些功能可能之后会做成vue插件
+
+## 资源管理
+1. 项目的静态资源统一放在assets目录下
+2. 全局样式的scss文件在该目录下
 
 ## 第三方插件管理
 
 1. 第三方插件统一放在./module/vendor/目录下，然后通过import方式引入
-   例子：
-        `import swal from "../../module/vendor/sweetalert/sweetalert.min"
-         swal("Hello world!");`
-       
+```javascript
+    import swal from "../../module/vendor/sweetalert/sweetalert.min"
+    swal("Hello world!");
+```
+2. 有些插件可能不符合打包规范（AMD,CMD），或者需要单独处理    
 
 
 
