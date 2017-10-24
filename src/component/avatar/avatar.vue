@@ -68,6 +68,7 @@
     import testImg from "../../assets/image/avatar.jpg";
     import A_imgHolder from "../../assets/image/holder.png";
 
+    //todo:添加图片加载优化
     export default {
         data () {
             return {

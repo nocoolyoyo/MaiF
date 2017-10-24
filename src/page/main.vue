@@ -6,9 +6,8 @@
     import Home from "./frame/home.vue"
     import {openFrame,closeFrame, closeOtherFrames}  from "./frame/frame"
 
-
     //标签页点击事件管理
-    function tabClickHandler (e)  {
+    function tabClickHandler (e) {
         let frameId = (e.target.nodeName === "LI")?
                         e.target.dataset.id:
                         e.target.parentNode.dataset.id;
@@ -175,6 +174,7 @@
             .frame-container {
                 height:100%;
                 flex: 1;
+                box-shadow: $box-shadow-normal;
                 /*display: flex;*/
                 /*flex-direction: column;*/
                 .frame-tabs {
@@ -225,7 +225,7 @@
                         overflow-x: auto;
 
                         height: 100%;
-                        li[data-id="homePage"] {
+                        li[data-id="home"] {
                             position: sticky;
                             left:0;
                             top:0;

@@ -1,8 +1,15 @@
 <template>
+
     <table class="ui celled table">
+        <!--<thead>-->
+            <!--<table-head :styleObject="tableStyle"-->
+                        <!--:columns="cloneColumns"-->
+                        <!--:obj-data="objData"-->
+                        <!--:columns-width="columnsWidth"-->
+                        <!--:data="rebuildData"></table-head>-->
+        <!--</thead>-->
         <thead>
-            <tr>
-                <th>标题</th>
+            <tr><th>标题</th>
                 <th>标题</th>
                 <th>标题</th>
             </tr>
@@ -45,93 +52,38 @@
     </table>
 </template>
 <script>
-    import { oneOf } from '../../utils/assist';
+    const prefixCls = 'maif';
 
 
     export default {
-        name: 'iForm',
-        props: {
-            model: {
-                type: Object
-            },
-            rules: {
-                type: Object
-            },
-            labelWidth: {
-                type: Number
-            },
-            labelPosition: {
-                validator (value) {
-                    return oneOf(value, ['left', 'right', 'top']);
-                },
-                default: 'right'
-            },
-            inline: {
-                type: Boolean,
-                default: false
-            },
-            showMessage: {
-                type: Boolean,
-                default: true
-            }
-        },
+        name: "Table",
         data () {
             return {
-                fields: []
+
             };
         },
-        computed: {
-            classes () {
-                return [
-                    `${prefixCls}`,
-                    `${prefixCls}-label-${this.labelPosition}`,
-                    {
-                        [`${prefixCls}-inline`]: this.inline
-                    }
-                ];
-            }
-        },
-        methods: {
-            resetFields() {
-                this.fields.forEach(field => {
-                    field.resetField();
-                });
+        props: {
+            //表格数据
+            data: {
+                type: Array,
+                default () {
+                    return [];
+                }
             },
-            validate(callback) {
-                let valid = true;
-                let count = 0;
-                this.fields.forEach(field => {
-                    field.validate('', errors => {
-                        if (errors) {
-                            valid = false;
-                        }
-                        if (typeof callback === 'function' && ++count === this.fields.length) {
-                            callback(valid);
-                        }
-                    });
-                });
+            //表格展示column
+            columns: {
+                type: Array,
+                default () {
+                    return [];
+                }
             },
-            validateField(prop, cb) {
-                const field = this.fields.filter(field => field.prop === prop)[0];
-                if (!field) { throw new Error('[iView warn]: must call validateField with valid prop string!'); }
-
-                field.validate('', cb);
-            }
-        },
-        watch: {
-            rules() {
-                this.validate();
-            }
-        },
-        created () {
-            this.$on('on-form-item-add', (field) => {
-                if (field) this.fields.push(field);
-                return false;
-            });
-            this.$on('on-form-item-remove', (field) => {
-                if (field.prop) this.fields.splice(this.fields.indexOf(field), 1);
-                return false;
-            });
+            //无数据占位符
+            noDataText: {
+                type: String
+            },
         }
     };
 </script>
+<style lang="scss" scoped>
+    $table-prefixCls: 'maif';
+</style>

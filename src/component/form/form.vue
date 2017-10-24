@@ -86,6 +86,7 @@
                 if (field) this.fields.push(field);
                 return false;
             });
+
             this.$on('on-form-item-remove', (field) => {
                 if (field.prop) this.fields.splice(this.fields.indexOf(field), 1);
                 return false;

@@ -44,6 +44,7 @@ import {getUrlParams, isUrl} from '../../utils/assist'     //页面辅助方法�
 //页面预先注册，用于webpack识别时候打包成当个文件，引用时候通过异步请求加载后载入
 
 //这里是组件的相关配置项目
+const defaultPageId = "home";
 const Config = {
     PATH: './frame/',               //相对加载路径
     USING_LOADING: true          //是否启用组件异步加载时的加载动画
@@ -58,12 +59,12 @@ let VmList = {};
  *   openedFrames用于记录当前窗口中打开的页面，后期可根据需求写入localStorage做断电保存
  *   openedFrames只记录当前url, url组织方式与普通url一样
  */
-let openedFrames = ["home"];
+let openedFrames = [defaultPageId];
 
 /*
  *   记录当前激活状态的id,默认是主页
  */
-let activeFrameId = "home";
+let activeFrameId = defaultPageId;
 /**
  * 检查组件是否已注册过
  * @param frameName
@@ -293,8 +294,6 @@ export function closeFrame(frameId) {
     // console.log(VmList[frameId].$off)
     // VmList[frameId].$off("frm-form_test");
     if(VmList[frameId]){
-
-
         VmList[frameId].$destroy();
         VmList[frameId] = null;
     }
@@ -328,9 +327,9 @@ export function closeOtherFrames() {
 
         }
     }
-    if(activeFrameId === "home")
-        openedFrames= ["home"];
-    openedFrames= ["home",activeFrameId ];
+    if(activeFrameId === defaultPageId)
+        openedFrames= [defaultPageId];
+    openedFrames= [defaultPageId,activeFrameId ];
     Active(activeFrameId);
 }
 

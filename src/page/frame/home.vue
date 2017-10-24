@@ -1,24 +1,7 @@
 <!--主界面-->
-<script>
-    //页面输出对象
-    export default  {
-        data () {
-            return {
-            }
-        },
-        methods: {
-            triggerTestEvent(){
-                EventBus.emit('frm-form_test', {params:12332});
-            }
-        },
-        mounted(){
-            console.log(this)
-        }
-    };
-</script>
-
 <template title="主页">
     <div class="frame">
+        <mtable></mtable>
         <div class="ui card">
             <div class="content">
                 <div class="header">Project Timeline</div>
@@ -198,7 +181,25 @@
         </div>
     </div>
 </template>
-
+<script>
+    import Mtable from "../../component/table/table.vue"
+    //页面输出对象
+    export default  {
+        components: {Mtable},
+        data () {
+            return {
+            }
+        },
+        methods: {
+            triggerTestEvent(){
+                EventBus.emit('frm-form_test', {params:12332});
+            }
+        },
+        mounted(){
+            console.log(this)
+        }
+    };
+</script>
 <style lang="scss">
 </style>
 

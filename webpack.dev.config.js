@@ -8,12 +8,6 @@ const autoprefixer = require('autoprefixer');
 
 
 //gulp 输出文件的目录
-// let _gulpFilePath = (dirname)=> {
-//     let path = "./src/gulp/";
-//     if(typeof dirname === 'undefined')
-//         return path;
-//     return path + dirname;
-// };
 
 module.exports = {
     devtool: '#eval-source-map',
@@ -45,9 +39,8 @@ module.exports = {
     },
 
     devServer: {
-        //publicPath: '/dist/',
-        host: '192.168.0.104',
-        port: 8090,
+        // host: '192.168.21.66',
+        // port: 8090,
         contentBase: "./dist",//本地服务器所加载的页面所在的目录
         historyApiFallback: true,//不跳转
         inline: true//实时刷新

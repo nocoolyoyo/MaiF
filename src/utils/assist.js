@@ -236,7 +236,6 @@ export function getFileType(fileInfo) {
                     fileInfo;
 
         for(let k in nameMatchGroup){
-            console.log(k)
             if(ext.match(nameMatchGroup[k])){
                 result = k;
                 break;
