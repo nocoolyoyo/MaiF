@@ -65,7 +65,6 @@
 <template>
     <div class="layout">
         <nav class="layout-menu">
-            <!--todo:左侧菜单改为脚本配置，3级嵌套-->
             <div class="information-card">
                 <avatar class="round size-md"
                         img-src="http://images2015.cnblogs.com/blog/1103730/201703/1103730-20170301141110548-1837926342.png"></avatar>
@@ -82,36 +81,34 @@
                     <i class="circular search link icon"></i>
                 </div>
             </header>
-            <main class="frame-container">
-                <nav class="frame-tabs ui">
-                    <div class="tabs-left-tools">
-                        <div><i class="angle double left icon"></i></div>
-                    </div>
-                    <div class="tab-list-container">
-                        <!--todo：标签页溢出滚动-->
-                        <ul class="tabs-list" @click="tabClickHandler($event)">
-                            <li class="active"  data-id="home">
-                                <i class="home icon"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="tabs-right-tools">
-                        <div><i class="angle double right icon"></i></div>
-                        <div class="ui icon dropdown">
-                            <i class="clone icon"></i>
-                            <div class="menu">
-                                <div class="item" @click="location">定位当前页</div>
-                                <div class="item" @click="closeOtherFrames">关闭其他页</div>
-                            </div>
+            <nav class="frame-tabs ui">
+                <div class="tabs-left-tools">
+                    <div><i class="angle double left icon"></i></div>
+                </div>
+                <div class="tab-list-container">
+                    <!--todo：标签页溢出滚动-->
+                    <ul class="tabs-list" @click="tabClickHandler($event)">
+                        <li class="active"  data-id="home">
+                            <i class="home icon"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabs-right-tools">
+                    <div><i class="angle double right icon"></i></div>
+                    <div class="ui icon dropdown">
+                        <i class="clone icon"></i>
+                        <div class="menu">
+                            <div class="item" @click="location">定位当前页</div>
+                            <div class="item" @click="closeOtherFrames">关闭其他页</div>
                         </div>
-                        <div><i class="sign out icon"></i></div>
                     </div>
-                </nav>
-                <div class="frame-pages">
+                    <div><i class="sign out icon"></i></div>
+                </div>
+            </nav>
+            <main class="frame-pages">
                     <div id="home" class="page active">
                         <home></home>
                     </div>
-                </div>
             </main>
         </div>
     </div>
@@ -160,140 +157,136 @@
             height: 100%;
             overflow:hidden;
             flex:1;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            contain: layout size style;
             //顶部工具条
             .top-tools {
                 padding: 5px;
                 height: $home-height-top-tools;
+                min-height: $home-height-top-tools;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
 
             }
-
-            //frame框架样式
-            .frame-container {
-                height:100%;
-                flex: 1;
-                box-shadow: $box-shadow-normal;
-                /*display: flex;*/
-                /*flex-direction: column;*/
-                .frame-tabs {
+            .frame-tabs {
+                user-select: none;
+                background-color: $theme-color-text;
+                height: $home-height-frame-tabs;
+                min-height: $home-height-frame-tabs;
+                box-sizing: border-box;
+                border-top:$home-border-tabs-list-li;
+                border-bottom: $home-border-frame-tabs;
+                display: flex;
+                align-items: stretch;
+                &>div, &>ul{
                     user-select: none;
-                    background-color: $theme-color-text;
-                    height: $home-height-frame-tabs;
-                    box-sizing: border-box;
-                    border-top:$home-border-tabs-list-li;
-                    border-bottom: $home-border-frame-tabs;
-                    display: flex;
-                    align-items: stretch;
-                    &>div, &>ul{
-                        user-select: none;
-                        height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
-                    }
-                    .tabs-home,.tabs-left-tools>div,.tabs-right-tools>div {
-                        box-sizing: border-box;
-                        cursor: pointer;
-                        width: $home-height-frame-tabs;
-                        font-size: large;
-                         line-height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
-                        text-align: center;
-                        background-color: $theme-color-bg;
-                        i {
-                            margin-right: 0;
-                        }
-                    }
-                    .tabs-left-tools {
-                        &>div {
-                            display: inline-block;
-                            border-right: $home-border-tabs-list-li;
-                        }
-                    }
-                    .tabs-right-tools {
-                        &>div {
-                            border-left: $home-border-tabs-list-li;
-                            display: inline-block;
-                        }
-                    }
-                    .tab-list-container {
-                        overflow: hidden;
-                        flex: 1;
-                        position: relative;
-                    }
-
-                    .tabs-list {
-                        overflow-y: hidden;
-                        overflow-x: auto;
-
-                        height: 100%;
-                        li[data-id="home"] {
-                            position: sticky;
-                            left:0;
-                            top:0;
-                        }
-                        li {
-                            cursor: pointer;
-                            border-right:  $home-border-tabs-list-li;
-                            height:inherit;
-                            display: inline-flex;
-                            flex-wrap: nowrap;
-                            /*float: left;*/
-                            align-items: center;
-                            justify-content: space-between;
-
-                            padding: 0 8px;
-                            transition:$home-transition-tabs;
-                            label {
-                                cursor: pointer;
-                                /*font-weight: bold;*/
-                                font-size:  $home-font-size-frame-tabs;
-                                overflow: hidden;
-                                text-overflow:ellipsis;
-                                white-space: nowrap;
-                                max-width: $home-tab-max-size;
-                            };
-                            i {
-                                $home-width-i: 25px;
-                                width: $home-width-i;
-                                margin-right: 0;
-                                &:hover {
-                                    color: $theme-color-danger;
-                                }
-                            }
-                            &.active {
-                                color: white;
-                                background-color: $theme-color-main;
-                            }
-                            &:hover {
-                                opacity: 0.8;
-                            }
-                        }
-                    }
-
+                    height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
                 }
-                .frame-pages {
+                .tabs-home,.tabs-left-tools>div,.tabs-right-tools>div {
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    width: $home-height-frame-tabs;
+                    font-size: large;
+                     line-height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
+                    text-align: center;
+                    background-color: $theme-color-bg;
+                    i {
+                        margin-right: 0;
+                    }
+                }
+                .tabs-left-tools {
+                    &>div {
+                        display: inline-block;
+                        border-right: $home-border-tabs-list-li;
+                    }
+                }
+                .tabs-right-tools {
+                    &>div {
+                        border-left: $home-border-tabs-list-li;
+                        display: inline-block;
+                    }
+                }
+                .tab-list-container {
+                    overflow: hidden;
+                    flex: 1;
+                    position: relative;
+                }
+
+                .tabs-list {
+                    overflow-y: hidden;
+                    overflow-x: auto;
+
                     height: 100%;
-                    /*flex: 1;*/
-                    .page {
-                        display: none;
-                        right: 0;
-                        bottom: 0;
-                        z-index: 1;
-                        overflow-x: hidden;
-                        overflow-y: auto;
-                        -webkit-overflow-scrolling: touch;
-                        will-change: scroll-position;
-                        contain: size style layout;
-                        top: 0;
-                        left: 0;
-                        position: relative;
-                        height:100%;
+                    li[data-id="home"] {
+                        position: sticky;
+                        left:0;
+                        top:0;
+                    }
+                    li {
+                        cursor: pointer;
+                        border-right:  $home-border-tabs-list-li;
+                        height:inherit;
+                        display: inline-flex;
+                        flex-wrap: nowrap;
+                        /*float: left;*/
+                        align-items: center;
+                        justify-content: space-between;
+
+                        padding: 0 8px;
+                        transition:$home-transition-tabs;
+                        label {
+                            cursor: pointer;
+                            /*font-weight: bold;*/
+                            font-size:  $home-font-size-frame-tabs;
+                            overflow: hidden;
+                            text-overflow:ellipsis;
+                            white-space: nowrap;
+                            max-width: $home-tab-max-size;
+                        };
+                        i {
+                            $home-width-i: 25px;
+                            width: $home-width-i;
+                            margin-right: 0;
+                            &:hover {
+                                color: $theme-color-danger;
+                            }
+                        }
                         &.active {
-                            display: block;
+                            color: white;
+                            background-color: $theme-color-main;
                         }
-                        .page-iframe {
-                            width: 100%;
-                            height: 99%;
+                        &:hover {
+                            opacity: 0.8;
                         }
+                    }
+                }
+            }
+            .frame-pages {
+                /*height: 100%;*/
+                flex: 1;
+                .page {
+                    display: none;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 1;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    -webkit-overflow-scrolling: touch;
+                    will-change: scroll-position;
+                    contain: size style layout;
+                    top: 0;
+                    left: 0;
+                    position: relative;
+                    height:100%;
+                    &.active {
+                        display: block;
+                    }
+                    .page-iframe {
+                        width: 100%;
+                        height: 99%;
                     }
                 }
             }

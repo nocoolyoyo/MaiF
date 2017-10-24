@@ -221,6 +221,7 @@
             }
             .card {
                 height: $uploader-height-card;
+                width: $uploader-height-card;
                 img {
                     height: $uploader-height-preview-img !important;
                 }
@@ -253,7 +254,7 @@
         .action-container {
             user-select: none;
             height: $uploader-height-action-container;
-            cursor: pointer;;
+            cursor: pointer;
             border: $uploader-border-action-container;
             color: $c-themeGray;
             font-size: $uploader-fontSize-action-container;
