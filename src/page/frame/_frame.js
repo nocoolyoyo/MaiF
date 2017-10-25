@@ -18,6 +18,7 @@
 *
 * */
 import Vue from "vue"
+import Swiper from '../../module/vendor/swiper/module'
 import {getUrlParams, isUrl} from '../../utils/assist'     //页面辅助方法类
 //页面预先注册，用于webpack识别时候打包成当个文件，引用时候通过异步请求加载后载入
 
@@ -38,6 +39,10 @@ let VmList = {};
  */
 let openedFrames = ["home"];
 
+/*
+* scroll-bar的swiper对象
+* */
+let Scroller = null;
 /*
  *   记录当前激活状态的id,默认是主页
  */
@@ -76,24 +81,42 @@ const Tabs = {
         if($tabList.querySelector('.active'))
             $tabList.querySelector('.active').classList.remove("active");
         $tabList.querySelector(`[data-id="${frameId}"]`).classList.add("active");
+        let _curIndex = openedFrames.indexOf(frameId);
+        console.log(_curIndex)
+        Scroller.slideTo(_curIndex);
         activeFrameId = frameId;
     },
     //新增标签
     create (frameId,frameTitle) {
-        let $tabList = document.querySelector('.tabs-list');
+        //let $tabList = document.querySelector('.tabs-list');
         // let title = FRAME[frameName].title;
-        let $li = document.createElement("li");
-        $li.dataset.id = frameId;
-        $li.innerHTML = ` <label>${frameTitle}</label>
-                              <i class="remove circle icon"></i>`;
-        $tabList.appendChild($li);
+        // let $li = document.createElement("li");
+        // $li.dataset.id = frameId;
+        // $li.innerHTML = ` <label>${frameTitle}</label>
+        //                       <i class="remove circle icon"></i>`;
+        // $tabList.appendChild($li);
+
+        let $li = `<li class="swiper-slide" data-id="${frameId}"><label>${frameTitle}</label><i class="remove circle icon"></i></li>`;
+        Scroller.appendSlide($li);
     },
     //删除标签
     delete (frameId)  {
-        console.log(frameId);
         let $tabList = document.querySelector('.tabs-list');
-        if($tabList.querySelector(`[data-id="${frameId}"]`))
-            $tabList.removeChild($tabList.querySelector(`[data-id="${frameId}"]`));
+        if($tabList.querySelector(`[data-id="${frameId}"]`)){
+            let _curIndex = openedFrames.indexOf(frameId);
+            Scroller.removeSlide(_curIndex);
+
+            if(Scroller.slides.length === _curIndex)
+                _curIndex--;
+            Scroller.slideTo(_curIndex);
+            let $tabList = document.querySelector('.tabs-list');
+            if($tabList.querySelector('.active'))
+                $tabList.querySelector('.active').classList.remove("active");
+            frameId = openedFrames[_curIndex];
+            $tabList.querySelector(`[data-id="${frameId}"]`).classList.add("active");
+            // Scroller.removeSlide(openedFrames.indexOf(frameId));
+        }
+        // $tabList.removeChild($tabList.querySelector(`[data-id="${frameId}"]`));
     }
 };
 
@@ -127,7 +150,6 @@ const Active = function (frameId) {
 
     //激活也绑定Tabs操作
     Tabs.active(frameId)
-
 };
 
 /**
@@ -279,11 +301,10 @@ export function closeFrame(frameId) {
         VmList[frameId].$destroy();
         VmList[frameId] = null;
     }
-
     //移除模板
     $frameList.removeChild($frameList.querySelector("#"+frameId));
     openedFrames.remove(frameId);
-    Active(needActiveId);
+    // Active(needActiveId);
 
 }
 
@@ -292,12 +313,16 @@ export function closeFrame(frameId) {
  */
 
 export function closeOtherFrames() {
+    let slidesCount = openedFrames.length;
+    if(slidesCount < 3)
+        return;
+
     let $frameList = document.querySelector('.frame-pages');
     for(let i = 1; i < openedFrames.length; i++){
 
         if(openedFrames[i] !== activeFrameId){
-            //移除标签模板
-            Tabs.delete(openedFrames[i]);
+            // //移除标签模板
+            // Tabs.delete(openedFrames[i]);
             //移除vue实例
             if(VmList[openedFrames[i]]){
                 VmList[openedFrames[i]].$destroy();
@@ -306,14 +331,59 @@ export function closeOtherFrames() {
             //移除模板
             if($frameList.querySelector("#"+openedFrames[i]))
                 $frameList.removeChild($frameList.querySelector("#"+openedFrames[i]));
-
         }
     }
-    if(activeFrameId === "home")
+
+
+    let arr = new Array(slidesCount), i=arr.length;
+    while(i--){arr[i] = i;}
+
+    arr.shift();
+
+    if(activeFrameId === "home"){
+
         openedFrames= ["home"];
-    openedFrames= ["home",activeFrameId ];
-    Active(activeFrameId);
+
+    }else{
+        arr.splice(Scroller.activeIndex - 1,arr.length-1);
+        openedFrames= ["home",activeFrameId];
+    }
+
+
+    if(arr.length!==0)
+        Scroller.removeSlide(arr)
+    //
+    //
+    // Active(activeFrameId);
 }
 
+/*
+* 初始化frame.js
+* 主要用于某些功能需要取页面生成的节点用
+* @params elemTabs {object} 滚动菜单节点对象
+*
+* */
+export function initFrames() {
 
+    Scroller = new Swiper('.tab-list-container',{
+        slidesPerView: 'auto',
+        autoHeight: true,
+        followFinger:false,
+        // freeMode: true,
+        mousewheel: true
+    });
+
+    Scroller.on('tap', function (e) {
+        let _frameId = (e.target.nodeName === "LI")?
+            e.target.dataset.id:
+            e.target.parentNode.dataset.id;
+        //删除事件
+        if(e.target.classList.contains('remove')){
+            closeFrame(_frameId)
+        }else{
+            Active(_frameId)
+        }
+        //激活事件
+    });
+}
 
