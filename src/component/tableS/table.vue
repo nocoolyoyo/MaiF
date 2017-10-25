@@ -124,6 +124,7 @@
                     return oneOf(value, ['small', 'large', 'default']);
                 }
             },
+
             width: {
                 type: [Number, String]
             },

@@ -9,7 +9,6 @@
 
         <uploader :options='uploadOpts'></uploader>
 
-
         <div class="ui card">
             <div class="content">
                 <div class="header">Project Timeline</div>
@@ -59,7 +58,7 @@
 </template>
 
 <script>
-    import EventBus from "../../module/custom/EventBus"
+    import EventBus from "../../utils/eventBus"
     import Uploader from "../../component/uploader/uploader.vue"
 //    import Table from "../../component/table/table.vue"
 

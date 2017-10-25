@@ -37,8 +37,6 @@ export function getUrlParams(url = "") {
     return params;
 }
 
-
-
 // For Modal scrollBar hidden
 let cached;
 export function getScrollBarSize (fresh) {

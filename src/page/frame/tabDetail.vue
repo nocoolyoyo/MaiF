@@ -26,7 +26,7 @@
     }
 </style>
 <script>
-    import EventBus from "../../module/custom/EventBus"
+    import EventBus from "../../utils/eventBus"
 
 
 

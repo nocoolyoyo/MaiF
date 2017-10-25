@@ -1,22 +1,18 @@
 <!--主界面-->
 <script>
-    import EventBus from '../module/custom/EventBus'
+
+
+    import EventBus from '../utils/eventBus'
     import Avatar from "../component/avatar/avatar.vue"
     import MainMenu from "./main-menu.vue"
     import Home from "./frame/home.vue"
-    import {openFrame,closeFrame, closeOtherFrames}  from "./frame/frame"
+    import {initFrames, openFrame,closeFrame, closeOtherFrames}  from "./frame/frame"
 
-    //标签页点击事件管理
-    function tabClickHandler (e) {
-        let frameId = (e.target.nodeName === "LI")?
-                        e.target.dataset.id:
-                        e.target.parentNode.dataset.id;
-        if(e.target.classList.contains("remove")){
-            closeFrame(frameId);
-        }else{
-            openFrame(frameId);
-        }
+    //检测
+    function checkMenuUpdate() {
+
     }
+
 
     //节点渲染后（mounted）的初始化
     function initAfterRender() {
@@ -24,6 +20,8 @@
         $('.ui.accordion').accordion({exclusive:false});
         //下弹框初始化
         $('.ui.dropdown').dropdown();
+
+        initFrames();
     }
 
     //页面输出对象
@@ -35,17 +33,9 @@
             }
         },
         methods: {
-            //tab标签页点击事件管理
-            tabClickHandler (e){
-                tabClickHandler(e)
-            },
             //打开页面，缺省方法，包含on和add判断调用
             openFrame (url){
                 openFrame(url);
-            },
-            //关闭页面
-            closeFrame(frameId){
-                closeFrame(frameId)
             },
             //关闭其他页面
             closeOtherFrames(){
@@ -82,19 +72,18 @@
                 </div>
             </header>
             <nav class="frame-tabs ui">
-                <div class="tabs-left-tools">
-                    <div><i class="angle double left icon"></i></div>
-                </div>
-                <div class="tab-list-container">
-                    <!--todo：标签页溢出滚动-->
-                    <ul class="tabs-list" @click="tabClickHandler($event)">
-                        <li class="active"  data-id="home">
+                <!--<div class="tabs-left-tools">-->
+                    <!--<div class="prev-tab"><i class="angle double left icon"></i></div>-->
+                <!--</div>-->
+                <div class="tab-list-container swiper-container">
+                    <ul class="tabs-list swiper-wrapper">
+                        <li class="swiper-slide active" data-id="home">
                             <i class="home icon"></i>
                         </li>
                     </ul>
                 </div>
                 <div class="tabs-right-tools">
-                    <div><i class="angle double right icon"></i></div>
+                    <!--<div class="next-tab"><i class="angle double right icon"></i></div>-->
                     <div class="ui icon dropdown">
                         <i class="clone icon"></i>
                         <div class="menu">
@@ -123,10 +112,10 @@
     $home-border-height-slim: 1px;
     $home-border-height-bold: 2px;
     $home-border-frame-tabs: $home-border-height-bold solid $theme-color-main;
-    $home-border-tabs-list-li: $home-border-height-slim solid $theme-color-hr;
+    $home-border-tabs-list-li: 0.5px solid $theme-color-hr;
     $home-transition-tabs:  all 0.3s ease;
     $home-tab-max-size:  200px;
-
+    $home-width-i: 25px;
     .layout {
         height:100%;
         width: 100%;
@@ -134,6 +123,10 @@
         display: flex;
         .layout-menu {
             height: inherit;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            will-change: scroll-position;
+            contain: size style layout;
             width: $home-width-menu;
             background-color: $theme-color-main;
             padding: 0 20px;
@@ -149,8 +142,6 @@
                     margin-top: 10px;
                 }
             }
-
-
         }
         .layout-main {
 
@@ -171,6 +162,9 @@
                 justify-content: space-between;
 
             }
+
+            $height-scrollerBar: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
+
             .frame-tabs {
                 user-select: none;
                 background-color: $theme-color-text;
@@ -183,7 +177,7 @@
                 align-items: stretch;
                 &>div, &>ul{
                     user-select: none;
-                    height: $home-height-frame-tabs - $home-border-height-bold - $home-border-height-slim;
+                    height: $height-scrollerBar;
                 }
                 .tabs-home,.tabs-left-tools>div,.tabs-right-tools>div {
                     box-sizing: border-box;
@@ -212,42 +206,52 @@
                 .tab-list-container {
                     overflow: hidden;
                     flex: 1;
+                    width: 940px;
                     position: relative;
                 }
 
                 .tabs-list {
-                    overflow-y: hidden;
-                    overflow-x: auto;
-
-                    height: 100%;
+                    /*overflow:hidden;*/
+                    /*overflow-y: hidden;*/
+                    /*overflow-x: auto;*/
+                    /*-webkit-overflow-scrolling: touch;*/
+                    /*will-change: scroll-position;*/
+                    /*contain: size style layout;*/
+                    height: inherit;
                     li[data-id="home"] {
-                        position: sticky;
-                        left:0;
-                        top:0;
+                        border-left:  $home-border-tabs-list-li;
+                        width:40px;
+                        max-width:40px;
                     }
                     li {
                         cursor: pointer;
                         border-right:  $home-border-tabs-list-li;
                         height:inherit;
-                        display: inline-flex;
-                        flex-wrap: nowrap;
-                        /*float: left;*/
-                        align-items: center;
-                        justify-content: space-between;
-
+                        max-width: $home-tab-max-size;
                         padding: 0 8px;
+                        /*padding :0;*/
+                        /*margin: 0;*/
+                        line-height: $height-scrollerBar;
                         transition:$home-transition-tabs;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        flex-wrap: nowrap;
                         label {
+
+                            flex:1;
                             cursor: pointer;
                             /*font-weight: bold;*/
                             font-size:  $home-font-size-frame-tabs;
                             overflow: hidden;
                             text-overflow:ellipsis;
                             white-space: nowrap;
-                            max-width: $home-tab-max-size;
+                            width: $home-tab-max-size - $home-width-i - 10px;
+                            max-width: $home-tab-max-size - $home-width-i - 10px;
                         };
                         i {
-                            $home-width-i: 25px;
+
                             width: $home-width-i;
                             margin-right: 0;
                             &:hover {
@@ -286,7 +290,7 @@
                     }
                     .page-iframe {
                         width: 100%;
-                        height: 99%;
+                        height: 100%;
                     }
                 }
             }

@@ -1,7 +1,7 @@
 <!--主界面-->
 <template title="主页">
     <div class="frame">
-        <mtable></mtable>
+        <mtable :columns="Columns" :data="Data" is-pagination ></mtable>
         <div class="ui card">
             <div class="content">
                 <div class="header">Project Timeline</div>
@@ -182,12 +182,18 @@
     </div>
 </template>
 <script>
+    import ConfigMock from "../../component/table/template"
     import Mtable from "../../component/table/table.vue"
+    import EventBus from "../../utils/eventBus"
+
     //页面输出对象
     export default  {
         components: {Mtable},
         data () {
             return {
+                Columns:ConfigMock.columns,
+                Data: ConfigMock.data,
+                pagination: ConfigMock.pagination
             }
         },
         methods: {
@@ -196,7 +202,7 @@
             }
         },
         mounted(){
-            console.log(this)
+//            console.log(this)
         }
     };
 </script>

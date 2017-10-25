@@ -1,78 +1,26 @@
 <template>
-    <table cellspacing="0" cellpadding="0" border="0" :style="styleObject">
-        <colgroup>
-            <col v-for="(column, index) in columns" :width="setCellWidth(column, index, false)">
-        </colgroup>
-        <tbody :class="[prefixCls + '-tbody']">
-            <template v-for="(row, index) in data">
-                <table-tr
-                    :row="row"
-                    :key="row._rowKey"
-                    :prefix-cls="prefixCls"
-                    @mouseenter.native.stop="handleMouseIn(row._index)"
-                    @mouseleave.native.stop="handleMouseOut(row._index)"
-                    @click.native="clickCurrentRow(row._index)"
-                    @dblclick.native.stop="dblclickCurrentRow(row._index)">
-                    <td v-for="column in columns" :class="alignCls(column, row)">
-                        <Cell
-                            :fixed="fixed"
-                            :prefix-cls="prefixCls"
-                            :row="row"
-                            :key="column._columnKey"
-                            :column="column"
-                            :natural-index="index"
-                            :index="row._index"
-                            :checked="rowChecked(row._index)"
-                            :disabled="rowDisabled(row._index)"
-                            :expanded="rowExpanded(row._index)"
-                        ></Cell>
-                    </td>
-                </table-tr>
-                <tr v-if="rowExpanded(row._index)">
-                    <td :colspan="columns.length" :class="prefixCls + '-expanded-cell'">
-                        <Expand :key="row._rowKey" :row="row" :render="expandRender" :index="row._index"></Expand>
-                    </td>
-                </tr>
-            </template>
-        </tbody>
-    </table>
+    <tbody>
+        <tr v-for="list in data">
+            <td v-for="item in columns">
+                <div v-if="typeof list[item.field]!== 'undefined' && list[item.field]!==''" v-html="list[item.field]"></div>
+                <div v-else>{{item.empty||empty}}</div>
+            </td>
+        </tr>
+    </tbody>
 </template>
 <script>
-    // todo :key="row"
-    import TableTr from './table-tr.vue';
-    import Cell from './cell.vue';
-    import Expand from './expand.js';
-    import Mixin from './mixin';
+
 
     export default {
         name: 'TableBody',
-        mixins: [ Mixin ],
-        components: { Cell, Expand, TableTr },
         props: {
-            prefixCls: String,
-            styleObject: Object,
+            empty: String,
             columns: Array,
-            data: Array,    // rebuildData
-            objData: Object,
-            columnsWidth: Object,
-            fixed: {
-                type: [Boolean, String],
-                default: false
-            }
+            //表格数据
+            data: Array
         },
         computed: {
-            expandRender () {
-                let render = function () {
-                    return '';
-                };
-                for (let i = 0; i < this.columns.length; i++) {
-                    const column = this.columns[i];
-                    if (column.type && column.type === 'expand') {
-                        if (column.render) render = column.render;
-                    }
-                }
-                return render;
-            }
+
         },
         methods: {
             rowChecked (_index) {
