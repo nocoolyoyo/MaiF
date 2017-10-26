@@ -10,7 +10,7 @@
 
 -->
 <template>
-    <div class="ui threaded  minimal comments">
+    <div class="ui minimal comments">
         <h3 class="ui dividing header" v-if="title">{{title}}</h3>
 
         <div class="comment" v-for="comment in data">
@@ -58,10 +58,6 @@
     import Comments from "../comments/template"
 
     import Avatar from "../avatar/avatar.vue"
-
-
-
-
 
 
     export default {

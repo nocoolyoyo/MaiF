@@ -57,7 +57,7 @@
         <nav class="layout-menu">
             <div class="information-card">
                 <avatar class="round size-md"
-                        img-src="http://images2015.cnblogs.com/blog/1103730/201703/1103730-20170301141110548-1837926342.png"></avatar>
+                        :img-src="imgSrc"></avatar>
                 <h2>啊实打实的</h2>
             </div>
             <!--菜单有于可能单独配置，故作抽离-->
