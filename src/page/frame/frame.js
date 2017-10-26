@@ -105,20 +105,11 @@ const Tabs = {
             $tabList.querySelector('.active').classList.remove("active");
         $tabList.querySelector(`[data-id="${frameId}"]`).classList.add("active");
         let _curIndex = openedFrames.indexOf(frameId);
-        console.log(_curIndex)
         Scroller.slideTo(_curIndex);
         activeFrameId = frameId;
     },
     //新增标签
     create (frameId,frameTitle) {
-        //let $tabList = document.querySelector('.tabs-list');
-        // let title = FRAME[frameName].title;
-        // let $li = document.createElement("li");
-        // $li.dataset.id = frameId;
-        // $li.innerHTML = ` <label>${frameTitle}</label>
-        //                       <i class="remove circle icon"></i>`;
-        // $tabList.appendChild($li);
-
         let $li = `<li class="swiper-slide" data-id="${frameId}"><label>${frameTitle}</label><i class="remove circle icon"></i></li>`;
         Scroller.appendSlide($li);
     },
@@ -129,17 +120,8 @@ const Tabs = {
             let _curIndex = openedFrames.indexOf(frameId);
             Scroller.removeSlide(_curIndex);
 
-            if(Scroller.slides.length === _curIndex)
-                _curIndex--;
-            Scroller.slideTo(_curIndex);
-            let $tabList = document.querySelector('.tabs-list');
-            if($tabList.querySelector('.active'))
-                $tabList.querySelector('.active').classList.remove("active");
-            frameId = openedFrames[_curIndex];
-            $tabList.querySelector(`[data-id="${frameId}"]`).classList.add("active");
-            // Scroller.removeSlide(openedFrames.indexOf(frameId));
         }
-            // $tabList.removeChild($tabList.querySelector(`[data-id="${frameId}"]`));
+
     }
 };
 
@@ -303,31 +285,33 @@ export function closeFrame(frameId) {
         needActiveId = "",
         index = openedFrames.indexOf(frameId);
 
-    //记录下当前窗口的上一个id
-    if(openedFrames.length === (index+1)){
-        needActiveId = openedFrames[index-1];
-        //不是最后一个
-    }else{
-        needActiveId = openedFrames[index+1];
-    }
+
 
     //移除标签模板
     Tabs.delete(frameId);
     //移除vue实例
 
-    // console.log(VmList[frameId].$listeners)
-    // console.log(VmList[frameId].$off)
-    // VmList[frameId].$off("frm-form_test");
     if(VmList[frameId]){
-
-
         VmList[frameId].$destroy();
         VmList[frameId] = null;
     }
+
+    if($frameList.querySelector("#"+frameId).classList.contains('active')){
+        if(openedFrames.length === (index+1)){
+            needActiveId = openedFrames[index-1];
+            //不是最后一个
+        }else{
+            needActiveId = openedFrames[index+1];
+        }
+        Active(needActiveId);
+    }
+
     //移除模板
     $frameList.removeChild($frameList.querySelector("#"+frameId));
     openedFrames.remove(frameId);
-   // Active(needActiveId);
+    //记录下当前窗口的上一个id
+
+
 
 }
 
@@ -379,6 +363,17 @@ export function closeOtherFrames() {
     //
     // Active(activeFrameId);
 }
+
+/**
+ * 滚动到当前tab，
+ * 不传参数默认滚动到当亲激活页面
+ */
+
+export function slideToCurTab() {
+    let _curIndex = openedFrames.indexOf(activeFrameId);
+    Scroller.slideTo(_curIndex);
+}
+
 
 /*
 * 初始化frame.js

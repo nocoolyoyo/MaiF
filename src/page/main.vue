@@ -6,7 +6,7 @@
     import Avatar from "../component/avatar/avatar.vue"
     import MainMenu from "./main-menu.vue"
     import Home from "./frame/home.vue"
-    import {initFrames, openFrame,closeFrame, closeOtherFrames}  from "./frame/frame"
+    import {initFrames, openFrame,closeFrame, closeOtherFrames,slideToCurTab}  from "./frame/frame"
 
     //检测
     function checkMenuUpdate() {
@@ -42,8 +42,8 @@
                 closeOtherFrames()
             },
             //定位到当前页面
-            location(){
-
+            locationCurTab(){
+                slideToCurTab();
             }
         },
         mounted () {
@@ -87,7 +87,7 @@
                     <div class="ui icon dropdown">
                         <i class="clone icon"></i>
                         <div class="menu">
-                            <div class="item" @click="location">定位当前页</div>
+                            <div class="item" @click="locationCurTab">定位当前页</div>
                             <div class="item" @click="closeOtherFrames">关闭其他页</div>
                         </div>
                     </div>
