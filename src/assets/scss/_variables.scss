@@ -6,11 +6,14 @@
 //-----------------------
 $baseFontFamily: "黑体";
 
+
 //字体-大小-----------------------
-$fs-h1: 32px;   //大标题，多用于正文标题
-$fs-h2: 28px;   //大标题，多用于正文标题
-$fs-h3: 24px;   //大标题，多用于正文标题
-$fs-h4: 24px;   //大标题，多用于正文标题
+$fs-h1: 30px;
+$fs-h2: 24px;
+$fs-h3: 16px;
+$fs-h4: 14px;
+$fs-h5: 12px;
+$fs-h6: 10px;
 $fs-p1: 20px;    //主内容，多用正文，大多数文字
 $fs-p2: 18px;    //主内容，多用正文，大多数文字
 $fs-p3: 16px;    //主内容，多用正文，大多数文字
@@ -21,6 +24,8 @@ $FontSize:(
         h2:  $fs-h2,
         h3:  $fs-h3,
         h4:  $fs-h4,
+        h5:  $fs-h5,
+        h6:  $fs-h6,
         p1:  $fs-p1,
         p2:  $fs-p2,
         p3:  $fs-p3,
@@ -40,77 +45,106 @@ $LineHeight:(
         p2:  $lh-p2
 );
 
-//色板-----------------------
-$c-smt-night: #1b1c1d;  //semantic
-$c-smt-border: rgba(34,36,38,.15);  //semantic
 
-$c-dreamlight: #95a2ff;
-$c-aoyi:  #51a3ff;
-$c-milka:  #f5f7f9;
-$c-silkgray:  rgb(250, 253, 255);
-$c-huiyuan:  #d7dde4;
-$c-nightlight: #3c3c3c;
-$c-blood:  #de432e;
-$c-lemon:  #de8b3d;
-$c-darklemon:  rgb(170, 130, 50);
-$c-tree: #07ab00;
-$c-darkTree:  rgb(60, 142, 40);
-$c-grayEyes:  rgb(137, 122, 98);
-$c-themeGray:  #e9eaec;
+//字体-粗细-----------------------
+$fw-bold: 600;
+$FontWeight:(
+        bold:  $fw-bold
+);
+
+
+//色板-----------------------
+$c-knight:      #70599D;
+$c-royal:       #6E70F7;
+$c-heart:       #FF403B;
+$c-cherry:       #FE1E6D;
+$c-mango:      #FFC000;
+$c-sapling:     #93D76E;
+
+$c-killer:      #1f2738;
+$c-ink:         #58647E;
+$c-dream:       #B8C5D8;
+$c-clean:       #deecff;
+$c-milka:       #F8F9FD;
+$c-muted:       #B5C0CB;
+
+////色板-----------------------
+//$c-smt-night: #1b1c1d;  //semantic
+//$c-smt-border: rgba(34,36,38,.15);  //semantic
+//
+//$c-dreamlight: #95a2ff;
+//$c-aoyi:  #51a3ff;
+//$c-milka:  #f5f7f9;
+//$c-silkgray:  rgb(250, 253, 255);
+//$c-huiyuan:  #d7dde4;
+//$c-nightlight: #3c3c3c;
+//$c-blood:  #de432e;
+//$c-lemon:  #de8b3d;
+//$c-darklemon:  rgb(170, 130, 50);
+//$c-tree: #07ab00;
+//$c-darkTree:  rgb(60, 142, 40);
+//$c-grayEyes:  rgb(137, 122, 98);
+//$c-themeGray:  #e9eaec;
 
 $Colors: (
-        milka:  $c-milka,
-        silkgray: $c-silkgray,
-        huiyuan: $c-huiyuan,
-        nightlight: $c-nightlight,
-        blood: $c-blood,
-        lemon: $c-lemon,
-        darklemon: $c-darklemon,
-        drakTree: $c-darkTree,
-        grayEyes: $c-grayEyes
+       $c-knight :    $c-knight,
+       $c-royal :     $c-royal,
+       $c-heart :     $c-heart,
+       $c-cherry :    $c-cherry,
+       $c-mango:      $c-mango,
+        $c-sapling :    $c-sapling,
+       $c-killer  :   $c-killer,
+       $c-ink :       $c-ink ,
+       $c-dream :     $c-dream
 );
 
 
 
 //主題配置
 
-$theme-color-main: $c-nightlight;
-$theme-color-bg: $c-milka;
-$theme-color-text: $c-milka;
-$theme-color-hr: $c-smt-border;
-$theme-color-primary: $c-aoyi;
-$theme-color-danger: $c-blood;
-$theme-color-warning: $c-lemon;
-$theme-color-success: $c-tree;
+$theme-color-main:       $c-knight;
+$theme-color-bg:           $c-milka;
+$theme-color-text:         $c-ink;
+$theme-color-hr:            $c-muted;
+$theme-color-primary:   $c-royal;
+$theme-color-danger:    $c-heart;
+$theme-color-warning:   $c-mango;
+$theme-color-success:     $c-sapling;
 
 
 
 //间距,尺寸-----------------------
-$s-small: 0.5rem;
-$s-middle: 1rem;
-$s-big: 2rem;
+$s-ss: 1px;
+$s-xs:  5px;
+$s-sm:  10px;
+$s-nm:  15px;
+$s-md:  20px;
+$s-lg:  30px;
+$s-xl:  40px;
+$s-sl:  50px;
 $Spaces: (
-           //间距
-          small: $s-small,
-          middle: $s-middle,
-          big: $s-big
-        );
+        ss: $s-ss,
+        xs:  $s-xs,
+        sm:  $s-sm,
+        nm:  $s-nm,
+        md:  $s-md,
+        lg:  $s-lg,
+        xl:  $s-xl,
+        sl:  $s-sl
+);
+
 
 //边线-----------------------
-
 $border-normal: 1px solid rgba(34,36,38,.15);
 
 
 
 //圓角-----------------------
-
 $border-radius-normal: .28571429rem;
-
 
 //过渡---------------------------
 $transition-normal: box-shadow .1s ease,-webkit-transform .1s ease;
 $transition-slow: all 0.5s ease;
-
 
 //阴影
 $box-shadow-normal: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
